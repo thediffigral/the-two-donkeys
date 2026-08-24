@@ -329,36 +329,64 @@ nav a:hover {
   }
 }
 /* LABEL PAGES */
+/* LABEL PAGES */
 
 .label-page {
-  max-width: 850px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 80px 0 110px;
+  padding: 64px 0 100px;
 }
 
 .label-page h1 {
-  font-family: "Libre Baskerville", Georgia, serif;
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  line-height: 1.15;
-  letter-spacing: -0.035em;
-  margin: 0 0 65px;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  margin: 0 0 40px;
   text-transform: lowercase;
 }
 
 .label-posts {
-  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
 }
 
 .label-post {
-  padding: 35px 0;
-  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px;
+  min-height: 240px;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 3px 8px rgba(0, 0, 0, 0.06);
+
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.label-post:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.10),
+    0 8px 20px rgba(0, 0, 0, 0.10);
+}
+
+.label-post .post-date {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 12px;
 }
 
 .label-post h2 {
-  font-family: "Libre Baskerville", Georgia, serif;
-  font-size: 1.65rem;
+  font-size: 1.35rem;
+  font-weight: 500;
   line-height: 1.35;
-  margin: 8px 0 12px;
+  margin: 0 0 14px;
 }
 
 .label-post h2 a {
@@ -371,6 +399,145 @@ nav a:hover {
 
 .label-post p {
   color: var(--muted);
-  max-width: 700px;
-  margin-bottom: 15px;
+  line-height: 1.65;
+  margin: 0 0 24px;
+}
+
+.label-post .read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+
+/* HOME */
+
+.home {
+  min-height: calc(100vh - 110px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 70px 20px;
+}
+
+.home-inner {
+  width: min(100%, 720px);
+  text-align: center;
+}
+
+.site-title {
+  margin: 0;
+
+  font-size: clamp(3.2rem, 9vw, 6.5rem);
+  font-weight: 500;
+  line-height: 1;
+
+  letter-spacing: -0.055em;
+}
+
+.site-description {
+  max-width: 500px;
+
+  margin: 24px auto 64px;
+
+  color: var(--muted);
+
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.home-links {
+  display: grid;
+  gap: 16px;
+
+  width: min(100%, 520px);
+  margin: 0 auto;
+}
+
+.person-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 72px;
+
+  padding: 0 24px;
+
+  background: var(--paper);
+
+  border: 1px solid var(--line);
+  border-radius: 18px;
+
+  text-decoration: none;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 3px 8px rgba(0, 0, 0, 0.05);
+
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.person-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.10),
+    0 8px 20px rgba(0, 0, 0, 0.10);
+}
+
+.person-card-title {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.person-card-arrow {
+  font-size: 1.3rem;
+  color: var(--muted);
+}
+
+.home-footer {
+  text-align: center;
+
+  padding: 20px 20px 45px;
+
+  color: var(--muted);
+
+  font-size: 0.78rem;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+  .label-posts {
+    grid-template-columns: 1fr;
+  }
+
+  .label-page {
+    padding-top: 45px;
+  }
+
+  .label-post {
+    padding: 24px;
+  }
+
+  .home {
+    padding: 45px 16px;
+  }
+
+  .site-description {
+    margin-bottom: 45px;
+  }
+
 }
