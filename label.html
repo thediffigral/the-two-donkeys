@@ -5,13 +5,15 @@
 
   <meta charset="utf-8">
 
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1">
 
   <title>Donkeying days</title>
 
-  <meta name="description"
-        content="Donkeying days">
+  <meta
+    name="description"
+    content="Donkeying days">
 
   <link rel="stylesheet"
         href="style.css">
@@ -47,8 +49,7 @@
       ← Donkeying days
     </a>
 
-    <p class="eyebrow"
-       id="label-eyebrow">
+    <p class="eyebrow">
       STORIES
     </p>
 
@@ -79,31 +80,43 @@
 async function loadLabel() {
 
   const params =
-    new URLSearchParams(window.location.search);
+    new URLSearchParams(
+      window.location.search
+    );
 
-  const label =
+  const requestedLabel =
     params.get("label");
 
   const title =
-    document.getElementById("label-title");
+    document.getElementById(
+      "label-title"
+    );
 
-  const postsContainer =
-    document.getElementById("posts");
+  const container =
+    document.getElementById(
+      "posts"
+    );
 
-  if (!label) {
 
-    title.textContent = "Stories";
+  if (!requestedLabel) {
 
-    postsContainer.innerHTML =
+    title.textContent =
+      "Stories";
+
+    container.innerHTML =
       '<div class="error">No label specified.</div>';
 
     return;
   }
 
-  title.textContent = label;
+
+  title.textContent =
+    requestedLabel;
+
 
   document.title =
-    label + " — Donkeying days";
+    requestedLabel +
+    " — Donkeying days";
 
 
   try {
@@ -111,60 +124,103 @@ async function loadLabel() {
     const response =
       await fetch("./posts.json");
 
+
     if (!response.ok) {
-      throw new Error("Could not load posts.");
+
+      throw new Error(
+        "Could not load posts.json"
+      );
+
     }
+
 
     const posts =
       await response.json();
 
 
+    const wanted =
+      requestedLabel
+        .trim()
+        .toLowerCase();
+
+
     const matching =
-      posts.filter(post =>
-        (post.labels || []).some(
-          item =>
-            item.toLowerCase() ===
-            label.toLowerCase()
-        )
-      );
+      posts.filter(post => {
+
+        const labels =
+          Array.isArray(post.labels)
+            ? post.labels
+            : [];
+
+        return labels.some(label =>
+          String(label)
+            .trim()
+            .toLowerCase() === wanted
+        );
+
+      });
 
 
     if (!matching.length) {
 
-      postsContainer.innerHTML =
-        '<div class="error">No stories found.</div>';
+      container.innerHTML = `
+
+        <div class="error">
+
+          No stories were found under
+          <strong>
+            ${escapeHtml(requestedLabel)}
+          </strong>.
+
+        </div>
+
+      `;
 
       return;
     }
 
 
-    postsContainer.innerHTML =
+    container.innerHTML =
       matching.map(post => {
 
         const excerpt =
-          getExcerpt(post.content || "");
+          getExcerpt(
+            post.content || ""
+          );
 
         return `
 
           <article class="label-post">
 
             <div class="post-date">
-              ${formatDate(post.published)}
+              ${formatDate(
+                post.published
+              )}
             </div>
 
             <h2>
-              <a href="stories/${post.slug}/">
-                ${escapeHtml(post.title)}
+
+              <a
+                href="stories/${encodeURIComponent(post.slug)}/">
+
+                ${escapeHtml(
+                  post.title
+                )}
+
               </a>
+
             </h2>
 
             <p>
               ${escapeHtml(excerpt)}
             </p>
 
-            <a class="read-more"
-               href="stories/${post.slug}/">
+            <a
+              class="read-more"
+              href="stories/${encodeURIComponent(post.slug)}/">
+
               Read story →
+
             </a>
 
           </article>
@@ -178,8 +234,15 @@ async function loadLabel() {
 
     console.error(error);
 
-    postsContainer.innerHTML =
-      '<div class="error">Stories could not be loaded.</div>';
+    container.innerHTML = `
+
+      <div class="error">
+
+        The stories could not be loaded.
+
+      </div>
+
+    `;
 
   }
 
@@ -193,27 +256,53 @@ function getExcerpt(html) {
 
   div.innerHTML = html;
 
-  const text =
-    (div.textContent || div.innerText || "")
-      .replace(/\s+/g, " ")
-      .trim();
 
-  return text.length > 280
-    ? text.substring(0, 280) + "…"
-    : text;
+  const text =
+    (
+      div.textContent ||
+      div.innerText ||
+      ""
+    )
+    .replace(/\s+/g, " ")
+    .trim();
+
+
+  if (text.length > 280) {
+
+    return text.substring(
+      0,
+      280
+    ) + "…";
+
+  }
+
+
+  return text;
 
 }
 
 
 function formatDate(value) {
 
-  if (!value) return "";
+  if (!value) {
+    return "";
+  }
+
 
   const date =
     new Date(value);
 
-  if (Number.isNaN(date.getTime()))
+
+  if (
+    Number.isNaN(
+      date.getTime()
+    )
+  ) {
+
     return "";
+
+  }
+
 
   return new Intl.DateTimeFormat(
     undefined,
@@ -229,18 +318,19 @@ function formatDate(value) {
 
 function escapeHtml(value) {
 
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
+  return String(value)
+    .replace(
+      /[&<>"']/g,
+      character => ({
 
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
 
-    }[character])
-  );
+      }[character])
+    );
 
 }
 
