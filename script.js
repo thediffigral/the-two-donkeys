@@ -1,64 +1,83 @@
-const BLOG = "https://thetwodonkeys.blogspot.com";
-const FEED = BLOG + "/feeds/posts/default?alt=json-in-script&max-results=50&callback=renderBloggerFeed";
+async function loadPosts() {
+  const target = document.getElementById("posts");
 
-function cleanText(html) {
-  const div = document.createElement("div");
-  div.innerHTML = html || "";
-  return (div.textContent || div.innerText || "").replace(/\s+/g, " ").trim();
+  try {
+    const response = await fetch("./posts.json");
+
+    if (!response.ok) {
+      throw new Error("Could not load posts.json");
+    }
+
+    const posts = await response.json();
+
+    if (!posts.length) {
+      target.innerHTML =
+        '<div class="error">No published posts were found.</div>';
+      return;
+    }
+
+    const cards = posts.map(post => {
+      const title = escapeHtml(post.title || "Untitled");
+      const excerpt = getExcerpt(post.content || "");
+      const date = formatDate(post.published);
+
+      return `
+        <article class="post-card">
+          <div class="post-date">${date}</div>
+          <h2>${title}</h2>
+          <p class="post-excerpt">${escapeHtml(excerpt)}</p>
+          <a class="read-more" href="${post.link}" target="_blank" rel="noopener">
+            Read story →
+          </a>
+        </article>
+      `;
+    }).join("");
+
+    target.innerHTML = `<div class="posts">${cards}</div>`;
+
+  } catch (error) {
+    console.error(error);
+
+    target.innerHTML =
+      '<div class="error">The posts could not be loaded yet.</div>';
+  }
 }
 
-function getLink(entry) {
-  const links = entry.link || [];
-  const alternate = links.find(x => x.rel === "alternate");
-  return alternate ? alternate.href : "#";
+function getExcerpt(html) {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+
+  const text = (div.textContent || div.innerText || "")
+    .replace(/\\s+/g, " ")
+    .trim();
+
+  return text.length > 220
+    ? text.substring(0, 220) + "…"
+    : text;
 }
 
 function formatDate(value) {
-  const d = new Date(value);
-  if (Number.isNaN(d.getTime())) return "";
+  if (!value) return "";
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) return "";
+
   return new Intl.DateTimeFormat(undefined, {
-    year: "numeric", month: "long", day: "numeric"
-  }).format(d);
-}
-
-function renderBloggerFeed(data) {
-  const target = document.getElementById("posts");
-  const entries = data?.feed?.entry || [];
-
-  if (!entries.length) {
-    target.innerHTML = '<div class="error">No published posts were returned by Blogger yet.</div>';
-    return;
-  }
-
-  const cards = entries.map(entry => {
-    const title = entry.title?.$t || "Untitled";
-    const html = entry.content?.$t || entry.summary?.$t || "";
-    const excerpt = cleanText(html).slice(0, 220);
-    const link = getLink(entry);
-    const date = formatDate(entry.published?.$t || entry.updated?.$t);
-
-    return `
-      <article class="post-card">
-        <div class="post-date">${date}</div>
-        <h2><a href="${link}" target="_blank" rel="noopener">${escapeHtml(title)}</a></h2>
-        <p class="post-excerpt">${escapeHtml(excerpt)}${excerpt.length >= 220 ? "…" : ""}</p>
-        <a class="read-more" href="${link}" target="_blank" rel="noopener">Read story →</a>
-      </article>`;
-  }).join("");
-
-  target.innerHTML = `<div class="posts">${cards}</div>`;
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  }).format(date);
 }
 
 function escapeHtml(value) {
-  return String(value).replace(/[&<>"']/g, ch => ({
-    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#039;"
-  }[ch]));
+  return String(value).replace(/[&<>"']/g, character => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  }[character]));
 }
 
-const script = document.createElement("script");
-script.src = FEED;
-script.onerror = () => {
-  document.getElementById("posts").innerHTML =
-    '<div class="error">Blogger could not be reached. The site itself is working; we will handle the Blogger connection during the next setup step.</div>';
-};
-document.body.appendChild(script);
+loadPosts();
