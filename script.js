@@ -16,7 +16,7 @@ async function loadPosts() {
       return;
     }
 
-    const cards = posts.map(post => {
+    const cards = posts.map((post, index) => {
       const title = escapeHtml(post.title || "Untitled");
       const excerpt = getExcerpt(post.content || "");
       const date = formatDate(post.published);
@@ -24,9 +24,13 @@ async function loadPosts() {
       return `
         <article class="post-card">
           <div class="post-date">${date}</div>
-          <h2>${title}</h2>
+          <h2>
+            <a href="article.html?id=${index}">
+              ${title}
+            </a>
+          </h2>
           <p class="post-excerpt">${escapeHtml(excerpt)}</p>
-          <a class="read-more" href="${post.link}" target="_blank" rel="noopener">
+          <a class="read-more" href="article.html?id=${index}">
             Read story →
           </a>
         </article>
@@ -48,7 +52,7 @@ function getExcerpt(html) {
   div.innerHTML = html;
 
   const text = (div.textContent || div.innerText || "")
-    .replace(/\\s+/g, " ")
+    .replace(/\s+/g, " ")
     .trim();
 
   return text.length > 220
