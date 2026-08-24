@@ -25,12 +25,12 @@ async function loadPosts() {
         <article class="post-card">
           <div class="post-date">${date}</div>
           <h2>
-            <a href="article.html?id=${index}">
+            <a href="stories/${posts[index].slug}/">
               ${title}
             </a>
           </h2>
           <p class="post-excerpt">${escapeHtml(excerpt)}</p>
-          <a class="read-more" href="article.html?id=${index}">
+          <a class="read-more" href="stories/${posts[index].slug}/">
             Read story →
           </a>
         </article>
