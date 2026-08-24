@@ -69,12 +69,18 @@ jobs:
 
               used_slugs.add(slug)
 
-              posts.append({
-                  "title": title,
-                  "content": content,
-                  "published": published,
-                  "slug": slug
-              })
+              labels = [
+    category.get("$t", "")
+    for category in entry.get("category", [])
+]
+
+posts.append({
+    "title": title,
+    "content": content,
+    "published": published,
+    "slug": slug,
+    "labels": labels
+})
 
           Path("posts.json").write_text(
               json.dumps(
