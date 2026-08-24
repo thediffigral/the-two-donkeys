@@ -16,7 +16,7 @@ jobs:
       - name: Get website files
         uses: actions/checkout@v4
 
-      - name: Download Blogger posts
+      - name: Download Blogger posts and build article pages
         run: |
           python - <<'PY'
           import json
@@ -26,26 +26,48 @@ jobs:
           from pathlib import Path
           import shutil
 
-          url = "https://thetwodonkeys.blogspot.com/feeds/posts/default?alt=json&max-results=100"
+          BLOGGER_URL = "https://thetwodonkeys.blogspot.com/feeds/posts/default?alt=json&max-results=100"
 
-          data = json.load(urllib.request.urlopen(url))
+          data = json.load(
+              urllib.request.urlopen(BLOGGER_URL)
+          )
 
           entries = data.get("feed", {}).get("entry", [])
-
-          posts = []
 
           def slugify(text):
               text = html.unescape(text).lower()
               text = re.sub(r"[^a-z0-9]+", "-", text)
               text = text.strip("-")
+
               return text or "story"
 
+          posts = []
+          used_slugs = set()
+
           for entry in entries:
-              title = entry.get("title", {}).get("$t", "Untitled")
-              content = entry.get("content", {}).get("$t", "")
-              published = entry.get("published", {}).get("$t", "")
+
+              title = entry.get(
+                  "title", {}
+              ).get("$t", "Untitled")
+
+              content = entry.get(
+                  "content", {}
+              ).get("$t", "")
+
+              published = entry.get(
+                  "published", {}
+              ).get("$t", "")
 
               slug = slugify(title)
+
+              original_slug = slug
+              number = 2
+
+              while slug in used_slugs:
+                  slug = original_slug + "-" + str(number)
+                  number += 1
+
+              used_slugs.add(slug)
 
               posts.append({
                   "title": title,
@@ -55,30 +77,151 @@ jobs:
               })
 
           Path("posts.json").write_text(
-              json.dumps(posts, ensure_ascii=False, indent=2),
+              json.dumps(
+                  posts,
+                  ensure_ascii=False,
+                  indent=2
+              ),
               encoding="utf-8"
           )
 
           stories = Path("stories")
+
+          if stories.exists():
+              for item in stories.iterdir():
+                  if item.is_dir():
+                      shutil.rmtree(item)
+
           stories.mkdir(exist_ok=True)
 
-          for old in stories.iterdir():
-              if old.is_dir():
-                  shutil.rmtree(old)
+          def make_article(post):
 
-          template = Path("article.html")
-
-          for post in posts:
-              folder = stories / post["slug"]
-              folder.mkdir(parents=True, exist_ok=True)
-
-              shutil.copy(
-                  template,
-                  folder / "index.html"
+              title = html.escape(
+                  post["title"],
+                  quote=True
               )
 
-          print(f"Found {len(posts)} Blogger posts")
-          print(f"Generated {len(posts)} article pages")
+              description = html.escape(
+                  re.sub(
+                      r"<[^>]+>",
+                      " ",
+                      post["content"]
+                  )[:160],
+                  quote=True
+              )
+
+              date = post["published"]
+
+              content = post["content"]
+
+              return f"""<!doctype html>
+          <html lang="en">
+
+          <head>
+
+            <meta charset="utf-8">
+
+            <meta name="viewport"
+                  content="width=device-width, initial-scale=1">
+
+            <title>{title} — The Two Donkeys</title>
+
+            <meta name="description"
+                  content="{description}">
+
+            <link rel="stylesheet"
+                  href="../../style.css">
+
+          </head>
+
+          <body>
+
+          <header class="site-header">
+
+            <div class="wrap header-inner">
+
+              <a class="brand"
+                 href="../../">
+                The Two Donkeys
+              </a>
+
+              <nav>
+                <a href="../../">Home</a>
+                <a href="../../#about">About</a>
+              </nav>
+
+            </div>
+
+          </header>
+
+          <main class="wrap">
+
+            <article class="article-page">
+
+              <a class="back"
+                 href="../../">
+                ← Back to stories
+              </a>
+
+              <div class="article-date">
+                {date[:10]}
+              </div>
+
+              <h1 class="article-title">
+                {title}
+              </h1>
+
+              <div class="article-content">
+                {content}
+              </div>
+
+              <div class="article-nav">
+
+                <a href="../../">
+                  ← Back to all stories
+                </a>
+
+              </div>
+
+            </article>
+
+          </main>
+
+          <footer class="site-footer">
+
+            <div class="wrap">
+              © The Two Donkeys
+            </div>
+
+          </footer>
+
+          </body>
+          </html>
+          """
+
+          for post in posts:
+
+              folder = stories / post["slug"]
+
+              folder.mkdir(
+                  parents=True,
+                  exist_ok=True
+              )
+
+              page = make_article(post)
+
+              (folder / "index.html").write_text(
+                  page,
+                  encoding="utf-8"
+              )
+
+          print(
+              f"Found {len(posts)} Blogger posts"
+          )
+
+          print(
+              f"Generated {len(posts)} article pages"
+          )
           PY
 
       - name: Save changes
@@ -88,6 +231,7 @@ jobs:
 
           git add posts.json stories
 
-          git diff --cached --quiet || git commit -m "Update Blogger stories"
+          git diff --cached --quiet || \
+            git commit -m "Update Blogger stories"
 
           git push
