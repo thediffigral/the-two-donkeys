@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <title>Donkeying days</title>
+
+  <meta name="description"
+        content="Donkeying days">
+
+  <link rel="stylesheet"
+        href="style.css">
+
+</head>
+
+<body>
+
+<header class="site-header">
+
+  <div class="wrap header-inner">
+
+    <a class="brand"
+       href="./">
+      Donkeying days
+    </a>
+
+    <nav>
+      <a href="./">Home</a>
+    </nav>
+
+  </div>
+
+</header>
+
+
+<main class="wrap">
+
+  <section class="label-page">
+
+    <a class="back"
+       href="./">
+      ← Donkeying days
+    </a>
+
+    <p class="eyebrow"
+       id="label-eyebrow">
+      STORIES
+    </p>
+
+    <h1 id="label-title">
+      Loading…
+    </h1>
+
+    <div id="posts"
+         class="label-posts">
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+  <div class="wrap">
+    © Donkeying days
+  </div>
+
+</footer>
+
+
+<script>
+
+async function loadLabel() {
+
+  const params =
+    new URLSearchParams(window.location.search);
+
+  const label =
+    params.get("label");
+
+  const title =
+    document.getElementById("label-title");
+
+  const postsContainer =
+    document.getElementById("posts");
+
+  if (!label) {
+
+    title.textContent = "Stories";
+
+    postsContainer.innerHTML =
+      '<div class="error">No label specified.</div>';
+
+    return;
+  }
+
+  title.textContent = label;
+
+  document.title =
+    label + " — Donkeying days";
+
+
+  try {
+
+    const response =
+      await fetch("./posts.json");
+
+    if (!response.ok) {
+      throw new Error("Could not load posts.");
+    }
+
+    const posts =
+      await response.json();
+
+
+    const matching =
+      posts.filter(post =>
+        (post.labels || []).some(
+          item =>
+            item.toLowerCase() ===
+            label.toLowerCase()
+        )
+      );
+
+
+    if (!matching.length) {
+
+      postsContainer.innerHTML =
+        '<div class="error">No stories found.</div>';
+
+      return;
+    }
+
+
+    postsContainer.innerHTML =
+      matching.map(post => {
+
+        const excerpt =
+          getExcerpt(post.content || "");
+
+        return `
+
+          <article class="label-post">
+
+            <div class="post-date">
+              ${formatDate(post.published)}
+            </div>
+
+            <h2>
+              <a href="stories/${post.slug}/">
+                ${escapeHtml(post.title)}
+              </a>
+            </h2>
+
+            <p>
+              ${escapeHtml(excerpt)}
+            </p>
+
+            <a class="read-more"
+               href="stories/${post.slug}/">
+              Read story →
+            </a>
+
+          </article>
+
+        `;
+
+      }).join("");
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    postsContainer.innerHTML =
+      '<div class="error">Stories could not be loaded.</div>';
+
+  }
+
+}
+
+
+function getExcerpt(html) {
+
+  const div =
+    document.createElement("div");
+
+  div.innerHTML = html;
+
+  const text =
+    (div.textContent || div.innerText || "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  return text.length > 280
+    ? text.substring(0, 280) + "…"
+    : text;
+
+}
+
+
+function formatDate(value) {
+
+  if (!value) return "";
+
+  const date =
+    new Date(value);
+
+  if (Number.isNaN(date.getTime()))
+    return "";
+
+  return new Intl.DateTimeFormat(
+    undefined,
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }
+  ).format(date);
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(value).replace(
+    /[&<>"']/g,
+    character => ({
+
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+
+    }[character])
+  );
+
+}
+
+
+loadLabel();
+
+</script>
+
+</body>
+
+</html>
