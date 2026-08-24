@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>The Two Donkeys</title>
+
+  <meta name="description" content="The Two Donkeys">
+
+  <link rel="stylesheet" href="../../style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+
+    <a class="brand" href="../../">
+      The Two Donkeys
+    </a>
+
+    <nav>
+      <a href="../../">Home</a>
+      <a href="../../#about">About</a>
+    </nav>
+
+  </div>
+</header>
+
+<main class="wrap">
+
+  <article class="article-page">
+
+    <a class="back" href="../../">
+      ← Back to stories
+    </a>
+
+    <div id="content">
+      Loading story…
+    </div>
+
+  </article>
+
+</main>
+
+<footer class="site-footer">
+
+  <div class="wrap">
+    © The Two Donkeys
+  </div>
+
+</footer>
+
+<script>
+
+async function loadArticle() {
+
+  const container = document.getElementById("content");
+
+  try {
+
+    const response = await fetch("../../posts.json");
+
+    if (!response.ok) {
+      throw new Error("Could not load posts.");
+    }
+
+    const posts = await response.json();
+
+    const path = window.location.pathname;
+
+    const parts = path.split("/").filter(Boolean);
+
+    const slug = parts[parts.length - 1];
+
+    const post = posts.find(
+      item => item.slug === slug
+    );
+
+    if (!post) {
+
+      container.innerHTML =
+        '<div class="error">Story not found.</div>';
+
+      return;
+    }
+
+    document.title =
+      post.title + " — The Two Donkeys";
+
+    container.innerHTML = `
+
+      <div class="article-date">
+        ${formatDate(post.published)}
+      </div>
+
+      <h1 class="article-title">
+        ${escapeHtml(post.title)}
+      </h1>
+
+      <div class="article-content">
+        ${post.content}
+      </div>
+
+      <div class="article-nav">
+
+        <a href="../../">
+          ← Back to all stories
+        </a>
+
+      </div>
+
+    `;
+
+  } catch (error) {
+
+    console.error(error);
+
+    container.innerHTML =
+      '<div class="error">The story could not be loaded.</div>';
+
+  }
+
+}
+
+
+function formatDate(value) {
+
+  if (!value) return "";
+
+  const date = new Date(value);
+
+  if (Number.isNaN(date.getTime())) return "";
+
+  return new Intl.DateTimeFormat(undefined, {
+
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+
+  }).format(date);
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(value).replace(
+    /[&<>"']/g,
+    character => ({
+
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#039;"
+
+    }[character])
+  );
+
+}
+
+
+loadArticle();
+
+</script>
+
+</body>
+</html>
