@@ -1,0 +1,64 @@
+name: Sync Blogger Posts
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/30 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Get website files
+        uses: actions/checkout@v4
+
+      - name: Download Blogger posts
+        run: |
+          python - <<'PY'
+          import json
+          import urllib.request
+          from pathlib import Path
+
+          url = "https://thetwodonkeys.blogspot.com/feeds/posts/default?alt=json&max-results=100"
+          data = json.load(urllib.request.urlopen(url))
+
+          entries = data.get("feed", {}).get("entry", [])
+          posts = []
+
+          for entry in entries:
+              title = entry.get("title", {}).get("$t", "Untitled")
+              content = entry.get("content", {}).get("$t", "")
+              published = entry.get("published", {}).get("$t", "")
+              
+              links = entry.get("link", [])
+              link = next(
+                  (x.get("href") for x in links if x.get("rel") == "alternate"),
+                  ""
+              )
+
+              posts.append({
+                  "title": title,
+                  "content": content,
+                  "published": published,
+                  "link": link
+              })
+
+          Path("posts.json").write_text(
+              json.dumps(posts, ensure_ascii=False, indent=2),
+              encoding="utf-8"
+          )
+
+          print(f"Found {len(posts)} Blogger posts")
+          PY
+
+      - name: Save changes
+        run: |
+          git config user.name "Blogger Sync"
+          git config user.email "actions@github.com"
+          git add posts.json
+          git diff --cached --quiet || git commit -m "Update Blogger posts"
+          git push
