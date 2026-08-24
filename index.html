@@ -1,46 +1,189 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Two Donkeys</title>
-  <meta name="description" content="Two donkeys on their journey together on earth.">
-  <link rel="stylesheet" href="style.css">
+
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+  <title>Donkeying days</title>
+
+  <meta name="description"
+        content="two donkeys on their journey together on earth">
+
+  <link rel="stylesheet"
+        href="style.css">
+
+  <style>
+
+    .home {
+      min-height: calc(100vh - 140px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 70px 0;
+    }
+
+    .home-inner {
+      width: min(100%, 760px);
+    }
+
+    .site-title {
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .site-description {
+      margin: 24px auto 65px;
+      color: var(--muted);
+      font-family: "Libre Baskerville", Georgia, serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 500px;
+    }
+
+    .home-links {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .home-link {
+      display: inline-block;
+      min-width: 300px;
+      padding: 17px 28px;
+      border: 1px solid var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+    }
+
+    .home-link:hover {
+      background: var(--text);
+      color: var(--bg);
+      transform: translateY(-2px);
+    }
+
+    .secondary-links {
+      margin-top: 55px;
+      display: flex;
+      justify-content: center;
+      gap: 38px;
+      flex-wrap: wrap;
+    }
+
+    .secondary-link {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.86rem;
+      border-bottom: 1px solid transparent;
+      padding-bottom: 3px;
+    }
+
+    .secondary-link:hover {
+      color: var(--text);
+      border-bottom-color: var(--text);
+    }
+
+    .home-footer {
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-align: center;
+      padding: 25px 0 45px;
+    }
+
+    @media (max-width: 600px) {
+
+      .home {
+        min-height: calc(100vh - 110px);
+        padding: 45px 0;
+      }
+
+      .site-description {
+        margin-bottom: 48px;
+      }
+
+      .home-link {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .secondary-links {
+        gap: 22px;
+        margin-top: 45px;
+      }
+
+    }
+
+  </style>
+
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="wrap header-inner">
-      <a class="brand" href="./">The Two Donkeys</a>
-      <nav>
-        <a href="./">Home</a>
-        <a href="#about">About</a>
-      </nav>
+
+<main class="wrap">
+
+  <section class="home">
+
+    <div class="home-inner">
+
+      <h1 class="site-title">
+        Donkeying days
+      </h1>
+
+      <p class="site-description">
+        two donkeys on their journey together on earth
+      </p>
+
+      <div class="home-links">
+
+        <a class="home-link"
+           href="label.html?label=she%20donkey">
+          she donkey writes here
+        </a>
+
+        <a class="home-link"
+           href="label.html?label=male%20donkey">
+          male donkey writes here
+        </a>
+
+      </div>
+
+      <div class="secondary-links">
+
+        <a class="secondary-link"
+           href="label.html?label=what%20we%20are%20reading">
+          what we are reading
+        </a>
+
+        <a class="secondary-link"
+           href="label.html?label=what%20we%20are%20watching">
+          what we are watching
+        </a>
+
+      </div>
+
     </div>
-  </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <p class="eyebrow">DONKEYING DAYS</p>
-      <h1>Two donkeys on their journey together on earth.</h1>
-      <p class="intro">Stories, observations and moments from the road.</p>
-    </section>
+  </section>
 
-    <section id="posts" aria-live="polite">
-      <div class="loading">Loading posts from Blogger…</div>
-    </section>
+</main>
 
-    <section id="about" class="about">
-      <p class="eyebrow">ABOUT</p>
-      <h2>The Two Donkeys</h2>
-      <p>This site uses Blogger as the writing space and presents the published posts in a separate, lightweight website.</p>
-      <p class="small">Original posts remain on Blogger. The site is designed so the appearance can be changed later without changing how you write.</p>
-    </section>
-  </main>
+<footer class="home-footer">
+  © Donkeying days
+</footer>
 
-  <footer class="site-footer">
-    <div class="wrap">© The Two Donkeys</div>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
+
 </html>
