@@ -69,10 +69,12 @@ jobs:
 
               used_slugs.add(slug)
 
-              labels = [
-                  category.get("$t", "")
-                  for category in entry.get("category", [])
-              ]
+              labels = []
+
+              for category in entry.get("category", []):
+                  label = category.get("term", "")
+                  if label:
+                      labels.append(label)
 
               posts.append({
                     "title": title,
