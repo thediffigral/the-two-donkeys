@@ -328,3 +328,49 @@ nav a:hover {
     font-size: 1rem;
   }
 }
+/* LABEL PAGES */
+
+.label-page {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 80px 0 110px;
+}
+
+.label-page h1 {
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  margin: 0 0 65px;
+  text-transform: lowercase;
+}
+
+.label-posts {
+  border-top: 1px solid var(--line);
+}
+
+.label-post {
+  padding: 35px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.label-post h2 {
+  font-family: "Libre Baskerville", Georgia, serif;
+  font-size: 1.65rem;
+  line-height: 1.35;
+  margin: 8px 0 12px;
+}
+
+.label-post h2 a {
+  text-decoration: none;
+}
+
+.label-post h2 a:hover {
+  color: var(--accent);
+}
+
+.label-post p {
+  color: var(--muted);
+  max-width: 700px;
+  margin-bottom: 15px;
+}
