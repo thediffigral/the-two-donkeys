@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>blessings in disguise — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" &amp;nbsp;although was a bit tired, i kept the promise of doing the things to make a habit and picked up the &#x27;high heel&#x27; of heart lamp. it was late,&amp;nbsp; also I j">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-07-08
+    </div>
+
+    <h1 class="article-title">
+      blessings in disguise
+    </h1>
+
+    <div class="article-content">
+      <p>&nbsp;although was a bit tired, i kept the promise of doing the things to make a habit and picked up the 'high heel' of heart lamp. it was late,&nbsp; also I just had the hormonal upsurge of argentina proceeding to the quarter finals in a thrilling match against Egypt in world cup football 2026. the day felt not that hot, but somehow little amount of humid was left.&nbsp;</p><p>the beginning paragaph of the story is different than the stories i have read so far. i lost my concentration several times and as usual i kept on reading through my eyes only. at some point i realized i don't even know what the story is going on, what is in my mind going on, and what my eyes are perceiving. then i started re-reading. and then it made sense to me.</p><p>although i found it a bit long, (it had to as the plot needed some explanation). some days ago, i saw in a social media post how banu wants to portray her ideas, (i have talked about this in the last entry as well), and this story was an epitome of that. probably because i was a bit distracted in between, i couldnot predict where the story is leading to. although i now feel, keeping in mind what banu wants to portray through her writings, this story is actually the easier one to predict. however, it is the 'ifs and buts'.&nbsp;</p><p>i liked the ending the chraracter ultimately pursues. i failed at predicting and only that finally brought me the satisfaction i should deserve. even to the 2nd last paragraph probably, i just read on and knew not what is going to be.&nbsp; sufferings first, and then roar against it - sometimes quitely, sometimes with a bang. but you must roar.&nbsp;</p><p>there are several sentences i really liked, 'material things have become priceless and human beings become worthless' and 1 or 2 others. good read.</p><p><br /></p><p>-- Male Donkey</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

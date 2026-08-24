@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>winner winner chicken dinner — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" &amp;nbsp;finally a story which i could get what it s leading to. i read the &#x27;decisioin from the heart&#x27;, and the story of the story is a bit different (probably i ">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-06-28
+    </div>
+
+    <h1 class="article-title">
+      winner winner chicken dinner
+    </h1>
+
+    <div class="article-content">
+      <p>&nbsp;finally a story which i could get what it s leading to. i read the 'decisioin from the heart', and the story of the story is a bit different (probably i had this things in my head because in the last two stories, muttawali thing was there). the story progressed really well and i see how Banu is careful while writiing a dialogue- she uses words and formation of sentence exactly how it would sound, i liked it. (this is particular to the dialogue she used though a kid). however, i could understand what the story is upto around 60% of when I read. compared to the previous stories, the hint was not in the beginning, but around 60%. I liked the story setup and the emotion of it. this is a really good story and has the BNS vibe (although till now what I have read, all of them has it, but this has more of this feeling).&nbsp;</p><p><br /></p><p>-- Male Donkey</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

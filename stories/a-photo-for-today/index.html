@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>A photo for today — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content="            We are starting a new series, photo of the day. A random photo with one or two lines describing the image. I have not clicked anything today. So, I ">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-07-07
+    </div>
+
+    <h1 class="article-title">
+      A photo for today
+    </h1>
+
+    <div class="article-content">
+      <p></p><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-0ENyAskDrTuZkLNym67HLFsfieuFMpXUkS_5JlRBQq6aTPBb02XdLI9to1AozAwz1PsDwUkfG3S4RlMGeJlLPKNux1rwjQ7dppdLiWlsisflNBVRnST-islOrrnqlURvg-NAwvAJhyphenhyphenvXEjIguQcyBvxV8KXbGarX1gVtSxmw8PPggIqrvU0Hux1Ze2vr/s1600/WhatsApp%20Image%202026-07-06%20at%2023.54.46.jpeg" style="clear: left; float: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" data-original-height="1600" data-original-width="1200" height="343" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg-0ENyAskDrTuZkLNym67HLFsfieuFMpXUkS_5JlRBQq6aTPBb02XdLI9to1AozAwz1PsDwUkfG3S4RlMGeJlLPKNux1rwjQ7dppdLiWlsisflNBVRnST-islOrrnqlURvg-NAwvAJhyphenhyphenvXEjIguQcyBvxV8KXbGarX1gVtSxmw8PPggIqrvU0Hux1Ze2vr/w257-h343/WhatsApp%20Image%202026-07-06%20at%2023.54.46.jpeg" width="257" /></a></div><br /><br /><p></p><p>We are starting a new series, photo of the day. A random photo with one or two lines describing the image. I have not clicked anything today. So, I have clicked this one right now just for the purpose of posting here.&nbsp;</p><p>&nbsp;It has been too hot lately. And in these hot days this is pretty much how my life looks like when I am in my room. Not always reading a book, but lying on this "pati" ( I don't know what it is called in english) on my floor, sometimes sleeping too.&nbsp;&nbsp;</p><p><br /></p><p><br /></p><p><br /></p><p><br /></p><p><br /></p><p>--- She Donkey</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>Finally, I finished  — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" &amp;nbsp;Yesterday night I finished the Days at the Morisaki Bookshop. It is indeed a small novel. As I had a huge gap in between, it took me almost one and a hal">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-08-15
+    </div>
+
+    <h1 class="article-title">
+      Finally, I finished 
+    </h1>
+
+    <div class="article-content">
+      <p>&nbsp;Yesterday night I finished the Days at the Morisaki Bookshop. It is indeed a small novel. As I had a huge gap in between, it took me almost one and a half months to complete it. But, I finished it, it is indeed a little achievement for me, who was struggling to read. As I finished the book and was thinking about it, I discovered one thing. At the beginning of the book, it completely got me. I was obsessed with the book town and the morisaki bookstore itself. And then how Takako found a new love, her love for reading books. The smell of the coffee of saveur and the comforting feeling of reading a novel in a coffee shop. These are all things a book lover will definitely love. Apart from that, what specifically about the story and the protagonists life I was deeply touched with! I couldn’t think of many. The author ( Satoshi Yagisawa) has kept the story simple, the protagonist Takako doesnot posses any extraordinary characteristics (like many fictional characters does). Nothing fancy happens in her life. Most of the incidents described in the novel can pretty usually happen to any one of us, and we witness it with many of our friends and acquaintances. But the beauty is, the simplicity has made it a cozy read. A cute little novel to read. But it’s not a kind that has a impact in your life, or the kind you can’t help but think about even after you finish it. I overall like the book, it was a good read but not something I would love to go back again. At the beginning I thought and expected it, but as the story progresses, I somehow keep losing that soul connection.&nbsp;</p><p><br /></p><p>—-She Donkey</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

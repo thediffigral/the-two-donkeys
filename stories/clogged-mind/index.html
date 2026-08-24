@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>Clogged Mind — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" &amp;nbsp;I very much want to be regular in writing this blog and most importantly in my reading habit, but I am struggling to do so. I am happy that male donkey i">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-08-13
+    </div>
+
+    <h1 class="article-title">
+      Clogged Mind
+    </h1>
+
+    <div class="article-content">
+      <p>&nbsp;I very much want to be regular in writing this blog and most importantly in my reading habit, but I am struggling to do so. I am happy that male donkey is really reading and writing his blogs. I too, have read a little, but writing this blog, though provide immense pleasure, in my mind it is always a heavy task to do. Actually, I am busy in some unfinished work, which I somehow just want to finish. And I am still not that much regular with my habit that I can grab a book amid this busy schedule that I am following recently. I hope, once it becomes habitual for me to read and write, I can even write and read in those busy days on my leisure time.&nbsp;</p><p>I still haven’t finished the morisaki bookstall novel. I have just two or three chapters left. Last week, one afternoon I read some pages, I was about to write but anyway it didn’t happen. Then on last saturday and sunday I read another book, again by Chitra Banerjee. I went to my cousins place and there I saw this book and pick it up. Anyway I am impressed with Chitra Banerjee after reading The Sister of my heart. And I have seen a lot of people putting their stories praising this book. So, I just read the prologue first and it entirely grab my attention. I have read 9 chapters already. It is the story of Ramayana. To be more accurate, it’s the story of Sita, from her perspective. It’s Sita who is narrating her story. And while reading it feels like Sita is an ordinary woman with same feelings and emotions like any one of us. Of course she bears some extraordinary powers and virtue and they make her divine. Yet, Chitra Banerjee doesn’t depict her as a deity or superwoman. She has make her character very human. And therefore while I am reading, I am not feeling like I am reading some holy book. And thats a reason I am loving reading it. My cousins are generous enough to lend me the book. Actually, I already know some version of the most of the stories included in the novel. It is interesting that still I feel the urge to read more, know more. The extra details I am discovering because it is from Sita’s POV is giving me a new perspective to look at the stories. Generally the &nbsp;epic poems always have different interpretations. To compare I never read any version of the Ramayana. I have heard stories from my grandparents and I have watched the Ramayana series by Ramanand Sagar. And as Ramayana movie is realising this Diwali, I think it is a great timing to read this book and be prepared to criticise the movie.&nbsp;</p><p><br /></p><p>It’s very late at night. And I am waiting for my code to finish running. Which is taking terribly long time. I am mentally and physically tired, don’t have energy to read. Therefore I thought I will just write about this book I am starting. But, I am feeling like my mind is clogged. So, I will write the details of how I feel about it in my next blog.&nbsp;</p><p><br /></p><p><br /></p><p>— She Donkey&nbsp;</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

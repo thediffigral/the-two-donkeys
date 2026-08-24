@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>the final finale — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" &amp;nbsp;i read the next story, &#x27;be a woman once oh lord&#x27;. the story is short similar to the gobi manchurian one, and unlike the previous stories of the book. the">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-07-30
+    </div>
+
+    <h1 class="article-title">
+      the final finale
+    </h1>
+
+    <div class="article-content">
+      <p>&nbsp;i read the next story, 'be a woman once oh lord'. the story is short similar to the gobi manchurian one, and unlike the previous stories of the book. the story is the name itself, one can casually assumes what is going to be, and it's really sad to know the kind of events the women in that kind of society has to go thorugh. the incident that banu describes the protagonist woman has to go through is not anew, similar events description is available in the previous stories too, however, this story was like a monologue of an woman. I thought probably it will end in a positive note (in many of the previous stories, there was an inch of positivity could be felt), however, it was not in that tone.&nbsp;</p><p>with this, the book ends. when i was looking at the page number, i thought, the story is going to be almost 40 pages long. after tis story, there's a translator's note, where she is talking about Banu and also her philosophy on translating the stories. As Banu was brought up in a mulitlagnual environment, that is why the story features kannada, urdu, hindi and one another language i forgot. the transltor is clever enough and i really like the idea that she is not doing italics when any local word arises in the context. for example, when the story needs to welcome an uncle, she is using the word chacha, but not {italics&nbsp;<i>chacha}. </i>I appreciate this creativity and the philosophy she possessed.&nbsp;</p><div style="text-align: left;">I am happy that i could finish the book. i decided that i would read the next story only when i finish writing about the one i read and that is why the whole process was really engaging. i was astounded to see my own thoughts blibbering after i read the stories. i searched for other books by Bany mushtaq (short stoy book), however, this is the one only available on the internet. My gratitude to Deepa Bhasthi for letting the world of Banu reach me.&nbsp;&nbsp;</div><div style="text-align: left;"><br /></div><div style="text-align: left;">-- Male Donkey</div>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

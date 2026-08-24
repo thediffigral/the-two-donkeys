@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>do we need another pizza? — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" &amp;nbsp;to be honest, after reading the beginning chapter of Urvashi Butalia&#x27;s book, I was a bit skeptical regarding what is coming up next. I liked the story be">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-07-09
+    </div>
+
+    <h1 class="article-title">
+      do we need another pizza?
+    </h1>
+
+    <div class="article-content">
+      <p>&nbsp;to be honest, after reading the beginning chapter of Urvashi Butalia's book, I was a bit skeptical regarding what is coming up next. I liked the story behind the stories of the book, but while going through the content list and the page numbers, I thought damn i don't want to read long pages article, i don't posses that capacity now. on the other hand, i also don't like the preposition of my mind that the no of books read should increase. i hate this quantitative arguments sometimes i hold on to. this is the reason why many things i do gets diluated.&nbsp;</p><p>however, i became aware of it and so it was possible to get rid of. but, being very honest, when i picked up the latest article (i don't want to say story, coz they are real), i forgot all these. I thought, so what, let's just read on for the sake, and I read on. Butalia although wrote in the active voice, i thought she will shift to narration kind, like from the protagonist viewpoint (because she said she is not going to present the interviews as question-ans kind, rather like a flowing river). this is however incorrect, and my logic is completely baseless. entire book starting from the acknowledgement (that will obviously be in active) to the first chapter is on first person active voice, suddenly why will it change to passive narration?</p><p>the first article is anyway is from her family, so it had to be in first person voice.&nbsp;</p><p>I read on and somehow all those pages are finished, I was really hooked in the story. I got hooked, because the writings are really making me engrossed into it, also because the incident itself is very tragic and she writes in a way that you will feel like watching a movie. the suspense she builds in the micro-endings (the entire chapter has some pagebreaks) feels like an episode of an web-series. partition stories are actually very sad and it is actually not possible for anybody to feel the exact pain who is not going through it. Batulia however is successful to many extent. it feeels like although i was not in hunger, i read it like grabbing a piece of food after staying a long fasting. the velocity of the writing is what I will always salute to. the picturisation i had while reading was really worth having. i am actually looking forward.</p><p><br /></p><p>-- Male Donkey</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

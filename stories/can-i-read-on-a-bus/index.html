@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>Can I read on a bus ! — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content="It’s been a long gap, again. Being consistent is the last thing I can do in life. I hope I will be able to overcome this one day. I am travelling to Kaziranga t">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-07-11
+    </div>
+
+    <h1 class="article-title">
+      Can I read on a bus !
+    </h1>
+
+    <div class="article-content">
+      It’s been a long gap, again. Being consistent is the last thing I can do in life. I hope I will be able to overcome this one day. I am travelling to Kaziranga today. To have an meet up with my friends. On my way from university to Dolabari, it suddenly hit me that I could have read the book on my way, maybe the journey will become little less boring ( i generally donot enjoy it when I need to travel by an ultra bus, to be brutally honest I hate ultra buses). I downloaded the epub version of the book I am reading, preparing myself for having a new experience. It’s indeed. I never thought before that it can be something I can do while travelling specially on an ultra bus. I always pick up the phone and end up scrolling through social media. Then I started reading, with kaavish playing on my ears. I liked it, as I could be entirely myself without fearing about what’s happening in the surroundings. I was totally lost in my own world. Then gradually my started a protest against me. I started feeling discomfort in reading the words, and so I lost the concentration. As I was having a tug of war between my discomfort and mu interest in the story, I missed my physical copy (anyway I believe, the small screen of your phone is not a perfect device to read books). But, indeed I enjoyed that new experience.<div><br /></div><div>I probably read just one chapter. Once momoko mentioned that you can seduce any men with your food. Never in my life I imagined that can be somebody a men can find sexy. I am a lazy cook like Takako, now if that’s true I can get a new inspiration to accelerate my learning in cooking (although I never advocate for doing something only to impress men, lol ).&nbsp;</div><div><br /></div><div><br /></div><div>—-She Donkey</div>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

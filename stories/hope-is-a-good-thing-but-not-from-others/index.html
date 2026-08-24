@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>hope is a good thing, but not from others. — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" i did read the partition related book remnants of separation - through material memory by Malhotra.&amp;nbsp; Anchal Malhotra now I remember. A book I accidently l">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-07-01
+    </div>
+
+    <h1 class="article-title">
+      hope is a good thing, but not from others.
+    </h1>
+
+    <div class="article-content">
+      <p>i did read the partition related book remnants of separation - through material memory by Malhotra.&nbsp; Anchal Malhotra now I remember. A book I accidently loved (accidently because I was never that aware of partition before - this is also sad at the same time). I knew that there were riots and many other incidents took place, but the atrocities I could never feel (again, because I didnot know much about it). I only came to know about it through the Malhotra book. I was driven by the book, the stories it has, and the way each stories is presented, narrated. Each story was unique and had a purpose to stay in that book. From almost every angle and perspective, the book is filled with stories with utmost care.&nbsp;</p><p>however, i am not going to illustrate about the Malhotra book. The new book I am writing here is the the other side of silence. now I really forgot the authors name, she is lady though. I only remember one of her maternal uncle's name, ranamama, (i hope i am correct in this). I remember this because the book is also dedicated to him. I have read the acknowledgement section and the first chapter. The way she acknowledges people gives me the feel that it is actually a PhD level research outcome, not a casual one. Malhotra;s book is also similar, they did a lot of research, work, visits, capturing recording - and this is why that makes it what it is - an outstanding piece of art. I will look at the authors name. Her name is Urvashi Butalia.&nbsp;</p><p>Butalia expresses gratititude to so many people, profressionally and personal one as well. She kept on mentioning about people who gave her casual and not-so-casual feedback (which I actually liked). Gradually I got the idea the book is indeed going to be a serious one. Then I read the first chapter,'the beggining'.&nbsp; I thought that chapter is some kind of what the book will be about, (yes definitely it is), but there she is using that chapter as an broad introcution to why she is doing the book, why this kind of work she decided to pubclish the book and how was the things that was bothering her during the preparations. actually this is the chapter that descibes how her book is actually different from rest of the partition related book. Even I was thinking that if this book also says about partition, is not it going to be almost similar to the Malhotra's one?&nbsp;</p><p>however, this is only in my mind and neither Butalia, nor Malhotra is competing with each other. In addition, I think Butalia's book is published before Malhotra. After reading the first chapter, I understood the core difference will be in the methodology. Definitely, Malhotra was clear that her book will be based on the material memory, and there was no such mention in Butalia. then why I was thinking about the similarity? Because I was thinking that ultimately it's about the parition incident only, by any means.&nbsp;</p><p>And then I found one paragraph in Butalia's book. She said while they were interviewing, people did not want to talk about it at the first instant. why? because that was so brutal, so brutal that they didnot want to talk about it. and that is where things become different and more interesting. what is there that people wants to avoid talking about it or don't want to recall about it? can we capture that emotion? can we get it out from them so that they feel "..." a word I learnt yesternight from the book, now I forgot. the word means 'a kind of feel one feels when the weight lifts off the shoulder'..</p><p>and in the process, Urvashi Butalia said it was actually a process she thought she would not be able to continue because the interviewing of that intense talks were a bit harsh for her sometimes (i mean she could not imagine such kind of brutality really exist?).</p><p>I will look forward and hope the book won't disappoint me.</p><p><br /></p><p>-- Male Donkey</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>upgradtion means new idea — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" &amp;nbsp;i was predeciding that i will be very concerned from the very beginning, and so I started to read the &#x27;Black Cobra&#x27; very consciously. then suddenly I los">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-06-27
+    </div>
+
+    <h1 class="article-title">
+      upgradtion means new idea
+    </h1>
+
+    <div class="article-content">
+      <p>&nbsp;i was predeciding that i will be very concerned from the very beginning, and so I started to read the 'Black Cobra' very consciously. then suddenly I lost the line of thought from the story and began wandering on my own. probably because i was reading it before i fall asleep, and that drousiness attacked me. i almost read 40% of it unconsciously (while i was trying to read it very carefully because i didnot want to be fooled liek the last time), but then decided to read from where I lost it. The story has the same word muttawali as in the previous story. i thought it was a name, but then realized it's a position. this is a habit i need to fix probably, many of such words i usually keep it as noun, unbothered to check if it may carry any meaning. even probably muttawali has a meaning i am not even looking it up, but having this confidence (thrugh whatever i have read and realized from these stories) that it is a president kind of post in masjids.&nbsp; (does it establish i am not curious? i don;t know! or probably i keep it for later realization (habit)). the story is almost in similar setting and I was ready to find a intimate connection with the beginning of the story to the ending. it has a connection definitely, but compared to the last story, it has a positive kind (when you read it, you will realize). One interesting aspect i liked from the presentation of the story is that, theere is one character who describes some event from his perspective. then from the other perspective, the story unfolds and reader now realises what is actually the case. I like this kind of revealing and self-realisation author compells the reader to make and want to do the same with my own writings too (hopefully someday).&nbsp; Overall i really liked the story progression and how it ends, mostly because i actually support the social progression the author wish to m ake and describes as an upgrade.&nbsp;</p><p><br /></p><p>oh then i also had an idea, in between the reading, i realised probably i did not look at the title (which i usually do or forget in most cases) and then thought let me guess the title or based on the completion of the story i will decide what can be a suitable title. then i thought ah, it's not my story how will i decide and then went up to see the name, and that is how i now remember the title. but then i thought of it, like, why not we can have a book, where the title of the story is written at the end of the story? like the movie names sometime appear at the end of the movie and ends it. i will do this experiment. probably in a book setting it will feel good.</p><p><br /></p><p>-- Male Donkey</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

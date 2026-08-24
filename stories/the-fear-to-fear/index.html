@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>the fear to fear — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" with what fear i initially had with the next chapter on Urvashi Butalia&#x27;s book, it turns out that although the having the fear part is justified, but several a">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-08-14
+    </div>
+
+    <h1 class="article-title">
+      the fear to fear
+    </h1>
+
+    <div class="article-content">
+      <p>with what fear i initially had with the next chapter on Urvashi Butalia's book, it turns out that although the having the fear part is justified, but several aspects are there in reality for which the chapter does not feature much horrific narration and aspects than it does in the previouos chapters, women and horror. the core reason is simple, during the partition they were children and during childhood, it's often not their own view but the surroudings or whomever they were guarded with. i could not think about this beforehand. i was mostly thinking on the horrific description the book will contain, there are definitely. but the description and the emotion it should contain (similar to the previous) is not the same. on the other hand, the lot many children were lost and they are not easily recognizable now, where are they, who have they become -&nbsp; because many of them were adopted later on, no connection with their own family, many had to go to the orphange, and apparently the girl child was taken for some other 'services'. it features an interview of a person who was child and narrate his story how he somehow could live his life amidst all the killings. when it was the time, and the male members were thinking of preserving the honor of the family and the ease to flee away to a safe place, the women, children, the older ones who can't move easily, were 'martyred'. however this mentioned child was saved, becasue he requested his uncle not to slit through his neck and promised he won't be a problem in the entire process of fleeing away. one sentence that Urvashi butalia also highlighted from his interview, he said the situation was like that the rich go to rich for help and the poor go to the poor, but it was not the default scenario before parition. Earlier even the poor went to the rich and was helped.&nbsp;</p><p>the chapter has a lot of questions (for which i appreciate the author Urvashi Butalia) which shows the careful research methodology she has considered. actually those are not questions, actually the precautionary considerations one must make before concluding anything. this chapter thus has helped my thought proceess horizon to grow a bit larger and teach to be careful when approaching to any topic or any process or on anyting.</p><p><br /></p><p>-- Male Donkey.&nbsp;</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

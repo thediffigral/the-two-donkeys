@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>there is really a booktown ! — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" So, that&#x27;s the thing. I kind of fall in love with the Morisaki Bookshop ( I am kind of obsessed). Today I googled about that place to see if it&#x27;s a real place.">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-07-02
+    </div>
+
+    <h1 class="article-title">
+      there is really a booktown !
+    </h1>
+
+    <div class="article-content">
+      <p>So, that's the thing. I kind of fall in love with the Morisaki Bookshop ( I am kind of obsessed). Today I googled about that place to see if it's a real place. Not exactly though, there is probably no Morisaki Bookshop but the neighbourhood Jimbocho is real. It's a book town in Tokyo, and really the largest used-book neighbourhood in the world, with small cafes and restaurants. Okay, now I have another place in the long bucket list of places I want to visit in my life (I have so many places that I have fallen in love with from books, videos, movies even from newspaper; and it is my dream that I will visit those places once in my lifetime). This is the beauty of reading, you can fall in love with places and people even without seeing them. How beautifully the authors have to panned it down so that you can feel it while reading the words. And I personally think you can feel it more deeply when you read than when you see it in a video or something (it is possible that this may vary from person to person). One reason why I feel like this maybe because my first connection with the outside world was through books and newspapers. But anyway, I am bragging so much about just the book neighbourhood that one may start thinking that the story of the book is all about that bookshop only. And I a falling in love just romanticizing about the book town. But there is something fresh about the story, the story is I guess mainly about starting a new journey and discovering oneself. The protagonist ( I am having a hard time remembering her name, I remember Hideaki, Tomo, uncle Satoru but could not remember her, yesterday I looked at her name while writing today I am not doing it so that I can get a push to remember it), was in the Morisaki bookshop after she left both her job and her boyfriend. She is discovering this new life in Jimbocho and is loving it, which she never&nbsp; thought she would. And a big part of it is uncle Satoru, the owner of the Morisaki Bookshop.&nbsp;</p><p>As I am reading through the book, my liking for uncle Satoru's character is growing with every chapter. He is man who loved doing so many things in his youth with so many aspirations; and then he settled at the secondhand bookshop his family has owned for generations. There was a dialogue from him where he say that after roaming all around the world, when he finally came back to that bookshop then he realised that no matter where he is or with whom, but if he could be honest with himself, then that was where he belonged ( this is not the exact dialogue but it is what he meant). This touches my heart and I also think if we cannot be totally honest with ourselves we can never be really happy.&nbsp;</p><p><br /></p><p>---- She Donkey</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

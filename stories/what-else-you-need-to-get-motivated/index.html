@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>what else you need to get motivated — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" In what is called a refreshing start, i picked Urvashi Batulia&#x27;s book again and amazed to find myself engrossed in the next chapter, woman. definitely i was pr">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-08-05
+    </div>
+
+    <h1 class="article-title">
+      what else you need to get motivated
+    </h1>
+
+    <div class="article-content">
+      <p>In what is called a refreshing start, i picked Urvashi Batulia's book again and amazed to find myself engrossed in the next chapter, woman. definitely i was preassuming her to be a feminist, (i am not sure whether she is or not), so my mind warns me to find something similar sort of description among the partition horror. the other most interesting thing was i got rid of the movies picture in my head and new pictures rode in as I keep on reading the chapter. probably because it was a restart or maybe i was away from such narration way too long, i found the chapter quite interesting and could complete it in one single sight. the stories it features is really sad. what i realised that woman or about woman, the perspectives of woman was essential in the book to desccribe the full picture of parition. i mean it is one of the degrees of freedom the author employs for anyone to realise the actual picture, the topic however others mostly use alongwith other topics.. many interesting questions were plotted.. during parititions several women had to stay in their respective place even when the other male members left because their religion mismatch. later when they could not etablish a connection with their families, they had to embrace the place and had to get married to someone from the other religion. So, when govt tried to bring them back to the place where their religion matches, many perspectives were there, for example, whom would they take on now, because if they got married to someone from other religion, their old families mostly abandon them. astonished to see the fact that women in muslim religion was easily accepted in Pakistan when they went from India, but women of hindu religion was hardly accepted in India when they came from Pak. govt initialized posters of ram-sita to mobilize the idea. there was one another question that was in the chapter, which I really found quite interesting. it was about the abducted women. if they were forced to marry, then after govt's decision to redistribute them based on their religion, then there was no question of the woman's choise where they wanted to be in, for example, hindu women if they were abducted in pak, then indian govt would bring her back without asking her where she wanted to be. this clearly violates the rights of women.&nbsp;</p><p>the chapter has a mention about damayanti sahgal, who happened to be a rescuer of such women appointed by govt. definitely she was interviewed by Butalia, however, it is written as a story not like an interview transcript (as clearly written in the introduction of this book). the chapter also has an interesting story worthy of a movie (it has a mention though that somebody announced they would make a movie based on that), even I was thinking when i was reading the story that it is actually worthy of a movie plot.&nbsp;</p><p>i like the story in the ending where sahgal was trying to convince an office to sign/attest some certificates of elderly women who wants to appear for class 8th exam. the conversation is interesting. i hope the next chapters are equally intersting as this one. needless to say, based on and impressed by this chapter only, i have decided to buy the physical copy of the book.&nbsp;</p><p><br /></p><p>-- Male Donkey</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

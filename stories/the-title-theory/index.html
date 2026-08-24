@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>the title theory — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" I am a bit skeptical with my entry today as I am writing using my laptop and I have to press it really hard because the keys are malfunctioned. nonetheless kee">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-07-07
+    </div>
+
+    <h1 class="article-title">
+      the title theory
+    </h1>
+
+    <div class="article-content">
+      <p>I am a bit skeptical with my entry today as I am writing using my laptop and I have to press it really hard because the keys are malfunctioned. nonetheless keeping my enthusiasm in check, I am putting my thoughts here as it is boiling since i read the next story of heart lamp and this time it is the star of the book, 'heart lamp'. usually i have this idea in my mind, i have seen older short story books where they are named as 'a story name and other selected story name'. and that story which is featured in the title is usually the best one (from authors perspective and readers as well; in very rare cases it is wrong). So, by default, i preassumed the story has to be the best among all. also I saw some social media story where people has widely appreciated banu for the book and the idea she conveys through it. so, the expectation naturally got high.&nbsp;</p><p>i started the story. it has been 3-4 days i didnot touch it because of an exam. however when i again picked it up, immediately i was taken to the familiar environment banu creates and it didnot feel foreign. i felt like going back to a familiar place once felt very home. somehow i felt this story has a velocity (not speed) that makes it standout. although i could guess the direction, the speed is Banu's writing superiority than any other regular writer.&nbsp;</p><p>towards the ending, i just couldnot think anything else, but just surrendering myself to banu's pen, and follow wherever she wants to takes us to. probably i read it in one short breath (towards the end). i felt magic. she writes magic. the story was a magic (it is a magic). after I end it, i feel so refreshed and felt like i should share it, sometimes we feel this kinda rush to tell somebody when we come to know juicy gossips. although gossip is not fitting here, but the rush inside the body was there.&nbsp;</p><p>while I praise the story for the magic she paints there, the ending lines i still seek something more (probably because the ending lines of previous stories were more solid or maybe i was too drawn away). this is a very personal view. maybe due to the hormonal rush, i couldnot pay that much of an attention that was desired and required. whatever it is, banu is another author coz of whom I will further carry this belief that usually it is the best story that gets featured in the title of a short story collection.&nbsp;</p><p><br /></p><p>-- Male Donkey</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

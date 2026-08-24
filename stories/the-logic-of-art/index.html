@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>the logic of art — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" it is finally one science based book I am taking out to read, the gene machine by Venki Ramakrishnan. i heard about it but I am a poor student when it comes to">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-08-04
+    </div>
+
+    <h1 class="article-title">
+      the logic of art
+    </h1>
+
+    <div class="article-content">
+      <p>it is finally one science based book I am taking out to read, the gene machine by Venki Ramakrishnan. i heard about it but I am a poor student when it comes to biology. since i left biology after class X, a lot of knowledge gap, numerous misconception and a handful of embarassment sessions for not knowing simple biology knowledge made me take the decision, only knowing some physics is not enough. that is what i have been feeling several times ago, i even tried to read the class XI, XII biology in my early phd days. however, the surge did not continue for long but the new curiosity i felt was enough to get the motivation consistently. i preassumed the book to be full of a lot of biology i maynot be able to understand, however, turns out it is not. the initial chapters actually remind me of Dr. Rubul Maut's book, although this book is not a motivational one. it features the journey of V Ramakrishnan how he finally deciphers one of the most complex topics in human race, the secrets of ribosome. the most fascinating thing is, he was a physicist. the another interesting thing is, he went up to join phd at the age of 19 to US, and secured one when he was 23. although I was not aware of him, i instantly got one idea, the man who is writing this book, is not one that we usually come to meet in our day-to-day life.&nbsp;<br /></p><p>i have come up to know many intertesting 'trivia' such as Bragg's laws Bragg was the son of a father, who himself was a renowned professor and when Bragg- the son, discoverd Bragg's law, he thought one day his father will steal the credit of this when they wrote a joint article. i could not think of this, the kind of relationship people might have when it comes to intellectual property. V, Ramakrishnan, when he went for phd, he was setup to meet a lady, who happend to be divorcee, and later they got married and he wrote , 'this way i become a stepfather of a daughter and i had to become responsible at the age 23' (not that similar, but the idea is this).. in one of the chapters, he wrote about one professor I think Berlin (the name is berline or something that sort, it started w B as far as I remember) .. who happens to have a lot of good relationship with different ladies simultaneously. venky wrote that even those ladies know about him yet they were all in good terms w him. this kind of description i also found in the autobiography of Dr. Kulendu Pathak. probably when people talk about scientists, it is mostly the science they care, but the art of scientists life is only found in such books.&nbsp;<br /></p><p>i spent some time in chapter 3 where he was describing the biology, for example, the gene, the dna, the mRna, protein structure, amino acid, - all these were to get into the core, the ribosome. although i tried to understand it, yet i know there is still some fog remained, hopefull will be able to understand it as the book progress. the following chapter was really good coz he wrote about how physics comes to handy for molecular biology and many of the physics concepts is written there as problem-then solution kind, which often is not found in typical textbooks - the reason which many of the students like me have to struggle understanding the gist of a new physical concepts.&nbsp;<br /></p><p>although the book is of similar length to Anita Desais novel, i will read it slow.&nbsp;<br /></p><br>-- Male Donkey.&nbsp;<br />
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>

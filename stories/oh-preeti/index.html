@@ -1,22 +1,31 @@
 <!doctype html>
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>The Two Donkeys</title>
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="The Two Donkeys">
+  <title>Oh Preeti ! — The Two Donkeys</title>
 
-  <link rel="stylesheet" href="../../style.css">
+  <meta name="description"
+        content=" &amp;nbsp;I have not read for a long time. I went home and got busy with some stuff that I couldn&#x27;t even read a single page ( this may be an excuse), and now I hav">
+
+  <link rel="stylesheet"
+        href="../../style.css">
+
 </head>
 
 <body>
 
 <header class="site-header">
+
   <div class="wrap header-inner">
 
-    <a class="brand" href="../../">
+    <a class="brand"
+       href="../../">
       The Two Donkeys
     </a>
 
@@ -26,18 +35,36 @@
     </nav>
 
   </div>
+
 </header>
 
 <main class="wrap">
 
   <article class="article-page">
 
-    <a class="back" href="../../">
+    <a class="back"
+       href="../../">
       ← Back to stories
     </a>
 
-    <div id="content">
-      Loading story…
+    <div class="article-date">
+      2026-07-30
+    </div>
+
+    <h1 class="article-title">
+      Oh Preeti !
+    </h1>
+
+    <div class="article-content">
+      <p>&nbsp;I have not read for a long time. I went home and got busy with some stuff that I couldn't even read a single page ( this may be an excuse), and now I have to build the habit from scratch. But I watched the series "Musafir Cafe" on netflix. One of my friend recommended me to watch, and I started watching without any expectations. As I started watching, it got me in many ways. It starred Vikrant Messi, that's definitely an USP for me. Another was the Musafir Cafe itself. I had (maybe I still have) a dream of opening my own cafe; a cafe where artist can come, jam, talk, I want to provide the atmosphere of a good adda point for the artists in my cute little cafe. And one of my visualization is to have a lots of books in the walls of the cafe. The concept of "musafir cafe" was very different, but the very idea that the protagonist who used to be a software engineer has a dream of opening his own cafe hit me differently. And then Preeti's dream of opening an Artist Residency; somehow my dream is a mixture of the dreams of Preeti and&nbsp; Chander. And Preeti ! I could relate to her in so many ways. In my scenes I could exactly feel Preeti. It feels like, to some context I am living the life of Preeti. Is love really supposed to be that bittersweet !&nbsp; Its a beautiful love story, I cannot blame any of the protagonist for what they are doing and its consequences. Everyone is right at their own place. But then, the ending !! I hope the script writer could have been little more generous towards Preeti.&nbsp; I know its an open ending, one can assume anything. We even don't know if season 2 comes, what will it serve on the plate. But for people like me, waiting to see Preeti happy, to see Preeti get what she deserves, this ending can be little unsettling !</p><p>This series left me with one question, why in love those who choose themselves over their loved one's are always the central character? Why not those who sacrifice themselves for their love?</p><p>I am editing this post, because everyone reading it may think I am insensitive towards Sudha. No, I am not. I totally understand Sudha. She is an incredible woman. I love how she support Chander, how she uplift Chander. Even when he fails to believe in himself, she believes in him and she implant that believe in him. That's why I wrote before that I have to say everyone is right at their own position. Maybe if I wouldn't feel the personal connection to Preeti, I would have love Sudha more. She may not be the textbook definition of&nbsp; a good lover/ woman, but she is pure. Her love is pure. The colours, love and energy she bring to Chander's life is what make Chander what he is today. But at the same time, there is Preeti, who has pour her everything in love. I could not but being little selfish towards her.&nbsp;</p><p><br /></p><p>---&gt; She Donkey</p>
+    </div>
+
+    <div class="article-nav">
+
+      <a href="../../">
+        ← Back to all stories
+      </a>
+
     </div>
 
   </article>
@@ -51,120 +78,6 @@
   </div>
 
 </footer>
-
-<script>
-
-async function loadArticle() {
-
-  const container = document.getElementById("content");
-
-  try {
-
-    const response = await fetch("../../posts.json");
-
-    if (!response.ok) {
-      throw new Error("Could not load posts.");
-    }
-
-    const posts = await response.json();
-
-    const path = window.location.pathname;
-
-    const parts = path.split("/").filter(Boolean);
-
-    const slug = parts[parts.length - 1];
-
-    const post = posts.find(
-      item => item.slug === slug
-    );
-
-    if (!post) {
-
-      container.innerHTML =
-        '<div class="error">Story not found.</div>';
-
-      return;
-    }
-
-    document.title =
-      post.title + " — The Two Donkeys";
-
-    container.innerHTML = `
-
-      <div class="article-date">
-        ${formatDate(post.published)}
-      </div>
-
-      <h1 class="article-title">
-        ${escapeHtml(post.title)}
-      </h1>
-
-      <div class="article-content">
-        ${post.content}
-      </div>
-
-      <div class="article-nav">
-
-        <a href="../../">
-          ← Back to all stories
-        </a>
-
-      </div>
-
-    `;
-
-  } catch (error) {
-
-    console.error(error);
-
-    container.innerHTML =
-      '<div class="error">The story could not be loaded.</div>';
-
-  }
-
-}
-
-
-function formatDate(value) {
-
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {
-
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-
-  }).format(date);
-
-}
-
-
-function escapeHtml(value) {
-
-  return String(value).replace(
-    /[&<>"']/g,
-    character => ({
-
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      '"': "&quot;",
-      "'": "&#039;"
-
-    }[character])
-  );
-
-}
-
-
-loadArticle();
-
-</script>
 
 </body>
 </html>
