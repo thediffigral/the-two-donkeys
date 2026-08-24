@@ -16,7 +16,7 @@ jobs:
       - name: Get website files
         uses: actions/checkout@v4
 
-      - name: Download Blogger posts and generate pages
+      - name: Download Blogger posts
         run: |
           python - <<'PY'
           import json
@@ -24,6 +24,7 @@ jobs:
           import html
           import urllib.request
           from pathlib import Path
+          import shutil
 
           url = "https://thetwodonkeys.blogspot.com/feeds/posts/default?alt=json&max-results=100"
 
@@ -39,8 +40,7 @@ jobs:
               text = text.strip("-")
               return text or "story"
 
-          for index, entry in enumerate(entries):
-
+          for entry in entries:
               title = entry.get("title", {}).get("$t", "Untitled")
               content = entry.get("content", {}).get("$t", "")
               published = entry.get("published", {}).get("$t", "")
@@ -59,131 +59,26 @@ jobs:
               encoding="utf-8"
           )
 
-          # Create article pages
-          template = Path("article.html").read_text(encoding="utf-8")
-
           stories = Path("stories")
           stories.mkdir(exist_ok=True)
 
-          # Remove old generated article directories
           for old in stories.iterdir():
               if old.is_dir():
-                  import shutil
                   shutil.rmtree(old)
 
-          for post in posts:
+          template = Path("article.html")
 
+          for post in posts:
               folder = stories / post["slug"]
               folder.mkdir(parents=True, exist_ok=True)
 
-              article = template
-
-              article = article.replace(
-                  '<script src="article.js"></script>',
-                  ''
+              shutil.copy(
+                  template,
+                  folder / "index.html"
               )
 
-              # Store post data in page
-              data_script = f'''
-              <script>
-              window.BLOGGER_POST = {json.dumps(post, ensure_ascii=False)};
-              </script>
-              '''
-
-              article = article.replace(
-                  "</head>",
-                  data_script + "</head>"
-              )
-
-              # Replace the existing article loader
-              start = article.find("<script>")
-              end = article.rfind("</script>")
-
-              if start != -1 and end != -1:
-                  new_script = f"""
-<script>
-const post = window.BLOGGER_POST;
-
-document.title =
-  "{html.escape(post['title'])}" + " — The Two Donkeys";
-
-document.getElementById("content").innerHTML = `
-  <div class="article-date">${{formatDate(post.published)}}</div>
-
-  <h1 class="article-title">
-    ${{escapeHtml(post.title)}}
-  </h1>
-
-  <div class="article-content">
-    ${{post.content}}
-  </div>
-
-  <div class="article-nav">
-    <a href="../..">← Back to all stories</a>
-  </div>
-`;
-
-function formatDate(value) {{
-  if (!value) return "";
-
-  const date = new Date(value);
-
-  if (Number.isNaN(date.getTime())) return "";
-
-  return new Intl.DateTimeFormat(undefined, {{
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-  }}).format(date);
-}}
-
-function escapeHtml(value) {{
-  return String(value).replace(/[&<>"']/g, character => ({{
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;"
-  }}[character]));
-}}
-</script>
-"""
-
-                  article = (
-                      article[:start] +
-                      new_script +
-                      article[end + 9:]
-                  )
-
-              (folder / "index.html").write_text(
-                  article,
-                  encoding="utf-8"
-              )
-
+          print(f"Found {len(posts)} Blogger posts")
           print(f"Generated {len(posts)} article pages")
-          PY
-
-      - name: Update homepage links
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-          import json
-          import re
-          import html
-
-          posts = json.loads(
-              Path("posts.json").read_text(encoding="utf-8")
-          )
-
-          path = Path("script.js")
-          text = path.read_text(encoding="utf-8")
-
-          text = text.replace(
-              'article.html?id=${index}',
-              'stories/${posts[index].slug}/'
-          )
-
-          path.write_text(text, encoding="utf-8")
           PY
 
       - name: Save changes
@@ -191,9 +86,8 @@ function escapeHtml(value) {{
           git config user.name "Blogger Sync"
           git config user.email "actions@github.com"
 
-          git add posts.json stories script.js
+          git add posts.json stories
 
-          git diff --cached --quiet || \
-            git commit -m "Update Blogger stories"
+          git diff --cached --quiet || git commit -m "Update Blogger stories"
 
           git push
