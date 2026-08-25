@@ -15,60 +15,146 @@
     name="description"
     content="Donkeying days">
 
-  <link rel="stylesheet"
-        href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css">
 
 </head>
 
 <body>
 
-<header class="site-header">
+<div class="site-layout">
 
-  <div class="wrap header-inner">
+  <!-- SIDEBAR -->
 
-    <a class="brand"
-       href="./">
-      Donkeying days
-    </a>
+  <aside class="sidebar">
 
-    <nav>
-      <a href="./">Home</a>
-    </nav>
-
-  </div>
-
-</header>
-
-
-<main class="wrap">
-
-  <section class="label-page">
-
-    
-
-    <h1 id="label-title">
-      Loading…
-    </h1>
-
-    <div id="posts"
-         class="label-posts">
+    <div class="sidebar-brand">
+      <a href="./">
+        Donkeying days
+      </a>
     </div>
 
-  </section>
+    <nav class="sidebar-main">
 
-</main>
+      <a href="./">
+        Home
+      </a>
+
+      <a href="label.html?label=she%20donkey">
+        she donkey
+      </a>
+
+      <a href="label.html?label=male%20donkey">
+        male donkey
+      </a>
+
+    </nav>
 
 
-<footer class="site-footer">
+    <div class="sidebar-section">
 
-  <div class="wrap">
-    © Donkeying days
-  </div>
+      <div class="sidebar-heading">
+        Books We Read
+      </div>
 
-</footer>
+      <div
+        id="books-list"
+        class="sidebar-labels">
+      </div>
+
+    </div>
+
+
+    <div class="sidebar-divider"></div>
+
+
+    <div class="sidebar-section">
+
+      <div class="sidebar-heading">
+        Movies Watched
+      </div>
+
+      <div
+        id="movies-list"
+        class="sidebar-labels">
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN CONTENT -->
+
+  <main class="content-area">
+
+    <section class="label-page">
+
+      <h1 id="label-title">
+        Loading…
+      </h1>
+
+      <div
+        id="posts"
+        class="label-posts">
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<script src="site-config.js"></script>
 
 
 <script>
+
+function createSidebarLinks() {
+
+  const books =
+    document.getElementById(
+      "books-list"
+    );
+
+  const movies =
+    document.getElementById(
+      "movies-list"
+    );
+
+
+  books.innerHTML =
+    SITE_CONFIG.books.map(
+      label => createLabelLink(label)
+    ).join("");
+
+
+  movies.innerHTML =
+    SITE_CONFIG.movies.map(
+      label => createLabelLink(label)
+    ).join("");
+
+}
+
+
+function createLabelLink(label) {
+
+  return `
+
+    <a
+      class="sidebar-label"
+      href="label.html?label=${encodeURIComponent(label)}">
+
+      ${escapeHtml(label)}
+
+    </a>
+
+  `;
+
+}
+
 
 async function loadLabel() {
 
@@ -79,6 +165,7 @@ async function loadLabel() {
 
   const requestedLabel =
     params.get("label");
+
 
   const title =
     document.getElementById(
@@ -100,11 +187,13 @@ async function loadLabel() {
       '<div class="error">No label specified.</div>';
 
     return;
+
   }
 
 
   title.textContent =
-    "stories by " + requestedLabel;
+    "stories by " +
+    requestedLabel;
 
 
   document.title =
@@ -146,6 +235,7 @@ async function loadLabel() {
             ? post.labels
             : [];
 
+
         return labels.some(label =>
           String(label)
             .trim()
@@ -171,6 +261,7 @@ async function loadLabel() {
       `;
 
       return;
+
     }
 
 
@@ -182,6 +273,7 @@ async function loadLabel() {
             post.content || ""
           );
 
+
         return `
 
           <article class="label-post">
@@ -191,6 +283,7 @@ async function loadLabel() {
                 post.published
               )}
             </div>
+
 
             <h2>
 
@@ -205,9 +298,11 @@ async function loadLabel() {
 
             </h2>
 
+
             <p>
               ${escapeHtml(excerpt)}
             </p>
+
 
             <a
               class="read-more"
@@ -261,17 +356,9 @@ function getExcerpt(html) {
     .trim();
 
 
-  if (text.length > 280) {
-
-    return text.substring(
-      0,
-      280
-    ) + "…";
-
-  }
-
-
-  return text;
+  return text.length > 280
+    ? text.substring(0, 280) + "…"
+    : text;
 
 }
 
@@ -294,7 +381,6 @@ function formatDate(value) {
   ) {
 
     return "";
-
   }
 
 
@@ -329,6 +415,7 @@ function escapeHtml(value) {
 }
 
 
+createSidebarLinks();
 loadLabel();
 
 </script>
