@@ -44,14 +44,7 @@
 
   <section class="label-page">
 
-    <a class="back"
-       href="./">
-      ← Donkeying days
-    </a>
-
-    <p class="eyebrow">
-      STORIES
-    </p>
+    
 
     <h1 id="label-title">
       Loading…
@@ -111,10 +104,11 @@ async function loadLabel() {
 
 
   title.textContent =
-    requestedLabel;
+    "stories by " + requestedLabel;
 
 
   document.title =
+    "stories by " +
     requestedLabel +
     " — Donkeying days";
 
