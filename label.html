@@ -221,28 +221,33 @@ async function loadLabel() {
       await response.json();
 
 
-    const wanted =
-      requestedLabel
-        .trim()
-        .toLowerCase();
+    function normalizeLabel(value) {
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[–—−]/g, "-")
+    .replace(/\s*-\s*/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+}
 
 
-    const matching =
-      posts.filter(post => {
-
-        const labels =
-          Array.isArray(post.labels)
-            ? post.labels
-            : [];
+  const wanted =
+    normalizeLabel(requestedLabel);
 
 
-        return labels.some(label =>
-          String(label)
-            .trim()
-            .toLowerCase() === wanted
-        );
+  const matching =
+    posts.filter(post => {
 
-      });
+      const labels =
+        Array.isArray(post.labels)
+          ? post.labels
+          : [];
+
+      return labels.some(label =>
+        normalizeLabel(label) === wanted
+      );
+
+    });
 
 
     if (!matching.length) {
