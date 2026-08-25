@@ -23,135 +23,60 @@
 
 <body>
 
-<div class="site-layout">
+<header class="site-header">
 
-  <!-- SIDEBAR -->
+  <div class="wrap header-inner">
 
-  <aside class="sidebar">
+    <a class="brand" href="./">
+      Donkeying days
+    </a>
 
-    <div class="sidebar-brand">
-      <a href="./">
-        Donkeying days
-      </a>
-    </div>
-
-    <nav class="sidebar-main">
-
-      <a href="./">
-        Home
-      </a>
-
-      <a href="label.html?label=she%20donkey">
-        she donkey
-      </a>
-
-      <a href="label.html?label=male%20donkey">
-        male donkey
-      </a>
-
+    <nav>
+      <a href="./">Home</a>
     </nav>
 
+  </div>
 
-    <div class="sidebar-section">
+</header>
 
-      <div class="sidebar-heading">
-        Books We Read
-      </div>
 
-      <div
-        id="books-list"
-        class="sidebar-labels">
-      </div>
+<main class="wrap">
 
+  <section class="label-page">
+
+    <h1 id="label-title">
+      Loading…
+    </h1>
+
+    <div
+      id="posts"
+      class="label-posts">
     </div>
 
+  </section>
 
-    <div class="sidebar-divider"></div>
-
-
-    <div class="sidebar-section">
-
-      <div class="sidebar-heading">
-        Movies Watched
-      </div>
-
-      <div
-        id="movies-list"
-        class="sidebar-labels">
-      </div>
-
-    </div>
-
-  </aside>
+</main>
 
 
-  <!-- MAIN CONTENT -->
+<footer class="site-footer">
 
-  <main class="content-area">
+  <div class="wrap">
+    © Donkeying days
+  </div>
 
-    <section class="label-page">
-
-      <h1 id="label-title">
-        Loading…
-      </h1>
-
-      <div
-        id="posts"
-        class="label-posts">
-      </div>
-
-    </section>
-
-  </main>
-
-</div>
-
-
-<script src="site-config.js"></script>
+</footer>
 
 
 <script>
 
-function createSidebarLinks() {
+function normalizeLabel(value) {
 
-  const books =
-    document.getElementById(
-      "books-list"
-    );
-
-  const movies =
-    document.getElementById(
-      "movies-list"
-    );
-
-
-  books.innerHTML =
-    SITE_CONFIG.books.map(
-      label => createLabelLink(label)
-    ).join("");
-
-
-  movies.innerHTML =
-    SITE_CONFIG.movies.map(
-      label => createLabelLink(label)
-    ).join("");
-
-}
-
-
-function createLabelLink(label) {
-
-  return `
-
-    <a
-      class="sidebar-label"
-      href="label.html?label=${encodeURIComponent(label)}">
-
-      ${escapeHtml(label)}
-
-    </a>
-
-  `;
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[–—−]/g, "-")
+    .replace(/\s*-\s*/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
 
 }
 
@@ -221,33 +146,26 @@ async function loadLabel() {
       await response.json();
 
 
-    function normalizeLabel(value) {
-  return String(value || "")
-    .toLowerCase()
-    .replace(/[–—−]/g, "-")
-    .replace(/\s*-\s*/g, "-")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-
-  const wanted =
-    normalizeLabel(requestedLabel);
-
-
-  const matching =
-    posts.filter(post => {
-
-      const labels =
-        Array.isArray(post.labels)
-          ? post.labels
-          : [];
-
-      return labels.some(label =>
-        normalizeLabel(label) === wanted
+    const wanted =
+      normalizeLabel(
+        requestedLabel
       );
 
-    });
+
+    const matching =
+      posts.filter(post => {
+
+        const labels =
+          Array.isArray(post.labels)
+            ? post.labels
+            : [];
+
+
+        return labels.some(label =>
+          normalizeLabel(label) === wanted
+        );
+
+      });
 
 
     if (!matching.length) {
@@ -289,7 +207,6 @@ async function loadLabel() {
               )}
             </div>
 
-
             <h2>
 
               <a
@@ -303,11 +220,9 @@ async function loadLabel() {
 
             </h2>
 
-
             <p>
               ${escapeHtml(excerpt)}
             </p>
-
 
             <a
               class="read-more"
@@ -331,9 +246,7 @@ async function loadLabel() {
     container.innerHTML = `
 
       <div class="error">
-
         The stories could not be loaded.
-
       </div>
 
     `;
@@ -370,10 +283,7 @@ function getExcerpt(html) {
 
 function formatDate(value) {
 
-  if (!value) {
-    return "";
-  }
-
+  if (!value) return "";
 
   const date =
     new Date(value);
@@ -386,6 +296,7 @@ function formatDate(value) {
   ) {
 
     return "";
+
   }
 
 
@@ -420,7 +331,6 @@ function escapeHtml(value) {
 }
 
 
-createSidebarLinks();
 loadLabel();
 
 </script>
