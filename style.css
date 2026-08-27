@@ -31,7 +31,7 @@ a {
 }
 
 .wrap {
-  width: min(calc(100% - 40px), 1100px);
+  width: min(calc(100% - 40px), 1200px);
   margin: 0 auto;
 }
 
@@ -803,17 +803,16 @@ nav a:hover {
 ========================================= */
 
 .homepage-posts {
-
   display: grid;
 
   grid-template-columns:
-    repeat(3, minmax(0, 1fr));
+    repeat(3, minmax(280px, 1fr));
 
-  gap: 24px;
+  gap: 28px;
 
   width: 100%;
 
-  max-width: 1100px;
+  max-width: 1200px;
 
   margin: 0 auto;
 
@@ -827,9 +826,9 @@ nav a:hover {
 
   flex-direction: column;
 
-  min-height: 250px;
+  min-height: 280px;
 
-  padding: 27px;
+  padding: 30px;
 
   background: #ffffff;
 
@@ -935,7 +934,7 @@ nav a:hover {
    HOMEPAGE RESPONSIVE
 ========================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
 
   .homepage-posts {
 
