@@ -2,16 +2,23 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>donkeying days</title>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1">
+
+  <title>Donkeying days</title>
 
   <meta
     name="description"
     content="two donkeys on their journey together on earth">
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css">
+
 </head>
 
 <body>
@@ -21,52 +28,383 @@
   <div class="home-inner">
 
     <h1 class="site-title">
-      donkeying days
+      Donkeying days
     </h1>
 
     <p class="site-description">
-      two donkeys on their journey together on Earth
+      two donkeys on their journey together on earth
     </p>
 
-    <div class="home-links">
 
-      <a
-        class="person-card"
-        href="label.html?label=she%20donkey">
+    <!-- TABS -->
 
-        <span class="person-card-title">
-          she donkey writes here
-        </span>
+    <div
+      class="story-tabs"
+      role="tablist">
 
-        <span class="person-card-arrow">
-          →
-        </span>
+      <button
+        class="story-tab active"
+        data-filter="she donkey"
+        role="tab">
 
-      </a>
+        she donkey
 
-      <a
-        class="person-card"
-        href="label.html?label=male%20donkey">
+      </button>
 
-        <span class="person-card-title">
-          male donkey writes here
-        </span>
 
-        <span class="person-card-arrow">
-          →
-        </span>
+      <button
+        class="story-tab"
+        data-filter="male donkey"
+        role="tab">
 
-      </a>
+        male donkey
+
+      </button>
+
+
+      <button
+        class="story-tab"
+        data-filter="all"
+        role="tab">
+
+        all stories together
+
+      </button>
 
     </div>
+
+
+    <!-- POSTS -->
+
+    <section
+      id="homepage-posts"
+      class="homepage-posts">
+
+      <div class="loading">
+        Loading stories…
+      </div>
+
+    </section>
+
 
   </div>
 
 </main>
 
+
 <footer class="home-footer">
+
   © Donkeying days
+
 </footer>
+
+
+<script>
+
+let allPosts = [];
+
+
+/* -------------------------
+   LOAD POSTS
+------------------------- */
+
+async function loadPosts() {
+
+  const container =
+    document.getElementById(
+      "homepage-posts"
+    );
+
+
+  try {
+
+    const response =
+      await fetch("./posts.json");
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Could not load posts.json"
+      );
+
+    }
+
+
+    allPosts =
+      await response.json();
+
+
+    showPosts("she donkey");
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    container.innerHTML = `
+
+      <div class="error">
+
+        The stories could not be loaded.
+
+      </div>
+
+    `;
+
+  }
+
+}
+
+
+/* -------------------------
+   SHOW POSTS
+------------------------- */
+
+function showPosts(filter) {
+
+  const container =
+    document.getElementById(
+      "homepage-posts"
+    );
+
+
+  let posts;
+
+
+  if (filter === "all") {
+
+    posts = allPosts;
+
+  } else {
+
+    posts =
+      allPosts.filter(post => {
+
+        const labels =
+          Array.isArray(post.labels)
+            ? post.labels
+            : [];
+
+
+        return labels.some(label =>
+          normalizeLabel(label) ===
+          normalizeLabel(filter)
+        );
+
+      });
+
+  }
+
+
+  if (!posts.length) {
+
+    container.innerHTML = `
+
+      <div class="error">
+
+        No stories found.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    posts.map(post => {
+
+      const excerpt =
+        getExcerpt(
+          post.content || ""
+        );
+
+
+      return `
+
+        <article class="homepage-post">
+
+          <div class="post-date">
+            ${formatDate(
+              post.published
+            )}
+          </div>
+
+
+          <h2>
+
+            <a
+              href="stories/${encodeURIComponent(post.slug)}/">
+
+              ${escapeHtml(
+                post.title
+              )}
+
+            </a>
+
+          </h2>
+
+
+          <p>
+            ${escapeHtml(excerpt)}
+          </p>
+
+
+          <a
+            class="read-more"
+            href="stories/${encodeURIComponent(post.slug)}/">
+
+            Read story →
+
+          </a>
+
+        </article>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* -------------------------
+   TAB CLICKING
+------------------------- */
+
+document
+  .querySelectorAll(".story-tab")
+  .forEach(tab => {
+
+    tab.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(".story-tab")
+          .forEach(item => {
+
+            item.classList.remove(
+              "active"
+            );
+
+          });
+
+
+        tab.classList.add(
+          "active"
+        );
+
+
+        const filter =
+          tab.dataset.filter;
+
+
+        showPosts(filter);
+
+      }
+    );
+
+  });
+
+
+/* -------------------------
+   HELPERS
+------------------------- */
+
+function normalizeLabel(value) {
+
+  return String(value || "")
+    .toLowerCase()
+    .replace(/[–—−]/g, "-")
+    .replace(/\s*-\s*/g, "-")
+    .replace(/\s+/g, " ")
+    .trim();
+
+}
+
+
+function getExcerpt(html) {
+
+  const div =
+    document.createElement("div");
+
+  div.innerHTML = html;
+
+
+  const text =
+    (
+      div.textContent ||
+      div.innerText ||
+      ""
+    )
+    .replace(/\s+/g, " ")
+    .trim();
+
+
+  return text.length > 220
+    ? text.substring(0, 220) + "…"
+    : text;
+
+}
+
+
+function formatDate(value) {
+
+  if (!value) return "";
+
+
+  const date =
+    new Date(value);
+
+
+  if (
+    Number.isNaN(
+      date.getTime()
+    )
+  ) {
+
+    return "";
+
+  }
+
+
+  return new Intl.DateTimeFormat(
+    undefined,
+    {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
+    }
+  ).format(date);
+
+}
+
+
+function escapeHtml(value) {
+
+  return String(value)
+    .replace(
+      /[&<>"']/g,
+      character => ({
+
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+
+      }[character])
+    );
+
+}
+
+
+loadPosts();
+
+</script>
 
 </body>
 
