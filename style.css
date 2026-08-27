@@ -743,13 +743,25 @@ nav a:hover {
 
   margin: 0 auto 40px;
 
-  padding: 4px;
+  padding: 6px;
 
   width: fit-content;
 
-  background: #f1f3f4;
+  background: rgba(241, 243, 244, 0.96);
 
   border-radius: 28px;
+
+  position: sticky;
+
+  top: 16px;
+
+  z-index: 100;
+
+  box-shadow:
+    0 1px 3px rgba(60, 64, 67, 0.12),
+    0 4px 10px rgba(60, 64, 67, 0.08);
+
+  backdrop-filter: blur(8px);
 }
 
 
@@ -985,6 +997,84 @@ nav a:hover {
 
     grid-template-columns: 1fr;
 
+  }
+
+}
+/* =========================================
+   BACK TO TOP
+========================================= */
+
+.back-to-top {
+  position: fixed;
+
+  right: 28px;
+  bottom: 28px;
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  color: #1967d2;
+
+  font-family: "Google Sans", Arial, sans-serif;
+
+  font-size: 1.35rem;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 2px 5px rgba(60, 64, 67, 0.20),
+    0 4px 12px rgba(60, 64, 67, 0.15);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transform: translateY(12px);
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  z-index: 200;
+}
+
+
+.back-to-top.visible {
+  opacity: 1;
+
+  visibility: visible;
+
+  transform: translateY(0);
+}
+
+
+.back-to-top:hover {
+  box-shadow:
+    0 3px 7px rgba(60, 64, 67, 0.24),
+    0 6px 16px rgba(60, 64, 67, 0.18);
+
+  background: #e8f0fe;
+}
+
+
+@media (max-width: 600px) {
+
+  .back-to-top {
+    right: 18px;
+    bottom: 18px;
+
+    width: 44px;
+    height: 44px;
   }
 
 }
