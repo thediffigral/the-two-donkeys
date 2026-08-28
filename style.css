@@ -56,13 +56,36 @@ a {
 }
 
 .site-title {
+  font-family:
+    "Google Sans",
+    Arial,
+    sans-serif;
+
+  font-size: clamp(3.5rem, 7vw, 6rem);
+
+  font-weight: 700;
+
+  line-height: 1.05;
+
+  letter-spacing: -0.045em;
+
   margin: 0;
 
-  font-family: "Google Sans", Arial, sans-serif;
-  font-size: clamp(3.2rem, 9vw, 6rem);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.045em;
+  background: linear-gradient(
+    135deg,
+    #303f9f 0%,
+    #1967d2 55%,
+    #174ea6 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  -webkit-text-fill-color: transparent;
+
+  text-shadow:
+    0 1px 1px rgba(23, 78, 166, 0.12),
+    0 3px 8px rgba(23, 78, 166, 0.08);
 }
 
 .site-description {
