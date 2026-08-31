@@ -192,10 +192,7 @@ jobs:
 
             <article class="article-page">
 
-              <a class="back"
-                 href="../../">
-                ← Back to stories
-              </a>
+              
 
               <div class="article-date">
                 {story_meta(post)}
@@ -207,6 +204,15 @@ jobs:
 
               <div class="article-content">
                 {content}
+              </div>
+
+              <div class="article-nav">
+
+                <a class="back"
+                   href="../../">
+                  ← Back to stories
+                </a>
+
               </div>
 
             </article>
