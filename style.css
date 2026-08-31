@@ -918,3 +918,18 @@ nav a:hover {
   }
 
 }
+.mobile-tab-text {
+  display: none;
+}
+
+@media (max-width: 600px) {
+
+  .desktop-tab-text {
+    display: none;
+  }
+
+  .mobile-tab-text {
+    display: inline;
+  }
+
+}
