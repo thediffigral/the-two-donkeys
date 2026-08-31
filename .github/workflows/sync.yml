@@ -102,6 +102,33 @@ jobs:
 
           stories.mkdir(exist_ok=True)
 
+                    def story_meta(post):
+
+              date = post["published"][:10]
+
+              topic_labels = [
+                  label
+                  for label in post.get("labels", [])
+                  if label.lower() not in (
+                      "she donkey",
+                      "male donkey"
+                  )
+              ]
+
+              if topic_labels:
+                  topics = " and ".join(
+                      html.escape(label)
+                      for label in topic_labels
+                  )
+
+                  return (
+                      f"Written on {date}, "
+                      f"after going through "
+                      f"<em>{topics}</em>."
+                  )
+
+              return f"Written on {date}"
+
           def make_article(post):
 
               title = html.escape(
@@ -154,8 +181,6 @@ jobs:
               </a>
 
               <nav>
-                <a href="../../">Home</a>
-                <a href="../../#about">About</a>
               </nav>
 
             </div>
@@ -166,13 +191,10 @@ jobs:
 
             <article class="article-page">
 
-              <a class="back"
-                 href="../../">
-                ← Back to stories
-              </a>
+              
 
               <div class="article-date">
-                {date[:10]}
+                {story_meta(post)}
               </div>
 
               <h1 class="article-title">
