@@ -894,3 +894,27 @@ nav a:hover {
   }
 
 }
+@media (max-width: 600px) {
+
+  .story-tabs.is-sticky {
+    left: 50%;
+    right: auto;
+    top: 8px;
+    bottom: auto;
+    width: auto;
+    max-width: calc(100vw - 24px);
+    transform: translateX(-50%);
+    box-sizing: border-box;
+  }
+
+  .story-tabs {
+    gap: 2px;
+    padding: 4px;
+  }
+
+  .story-tab {
+    padding: 9px 10px;
+    font-size: 0.75rem;
+  }
+
+}
