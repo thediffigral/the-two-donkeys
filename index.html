@@ -60,7 +60,27 @@
   </div>
 
 </section>
+  <!-- MOVIES -->
 
+<section class="collection-section">
+
+  <div class="collection-heading">
+    <p class="collection-label">MOVIES</p>
+
+    <h2>Movies we watched</h2>
+  </div>
+
+  <div
+    id="movies-grid"
+    class="collection-grid movie-grid">
+
+    <div class="loading">
+      Loading movies…
+    </div>
+
+  </div>
+
+</section>
     <!-- POSTS -->
 
     <section
@@ -183,6 +203,24 @@ let allPosts = [];
 
 ];
 
+  const movies = [
+
+  {
+    label: "Musafir cafe",
+    title: "Musafir cafe"
+  },
+
+  {
+    label: "Thappad",
+    title: "Thappad"
+  },
+
+  {
+    label: "The Odyssey",
+    title: "The Odyssey"
+  }
+
+];
 /* -------------------------
    LOAD POSTS
 ------------------------- */
@@ -214,6 +252,7 @@ async function loadPosts() {
       await response.json();
 
     showBooks();
+    showMovies();
     showPosts("she donkey");
 
 
@@ -295,6 +334,78 @@ function showBooks() {
       `;
 
     }).join("");
+
+}
+
+  function showMovies() {
+
+  const container =
+    document.getElementById("movies-grid");
+
+  if (!container) return;
+
+  container.innerHTML =
+    movies.map(movie => {
+
+      const encodedLabel =
+        encodeURIComponent(movie.label);
+
+      return `
+
+        <article
+          class="collection-card movie-card">
+
+          <div class="movie-poster">
+
+            <div class="movie-poster-title">
+              ${escapeHtml(movie.title)}
+            </div>
+
+          </div>
+
+          <div class="collection-card-content">
+
+            <h3>
+              ${escapeHtml(movie.title)}
+            </h3>
+
+            <button
+              class="collection-link"
+              type="button"
+              onclick="showMovieStories('${encodedLabel}')">
+
+              Read our stories →
+
+            </button>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }).join("");
+
+}
+
+  function showMovieStories(encodedLabel) {
+
+  const label =
+    decodeURIComponent(encodedLabel);
+
+  showPosts(label);
+
+  const stories =
+    document.getElementById("homepage-posts");
+
+  if (stories) {
+
+    stories.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  }
 
 }
 
