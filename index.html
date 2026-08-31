@@ -319,8 +319,33 @@ document
         const filter =
           tab.dataset.filter;
 
-
         showPosts(filter);
+
+        setTimeout(() => {
+
+          const posts =
+            document.getElementById("homepage-posts");
+
+          const tabs =
+            document.querySelector(".story-tabs");
+
+          if (!posts) return;
+
+            const tabHeight =
+              tabs ? tabs.offsetHeight : 0;
+
+            const target =
+              posts.getBoundingClientRect().top +
+              window.scrollY -
+              tabHeight -
+              20;
+
+            window.scrollTo({
+              top: target,
+              behavior: "smooth"
+            });
+
+          }, 50);
 
       }
     );
