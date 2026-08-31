@@ -38,8 +38,40 @@ jobs:
               text = html.unescape(text).lower()
               text = re.sub(r"[^a-z0-9]+", "-", text)
               text = text.strip("-")
-
               return text or "story"
+
+          def normalize_label(value):
+              return re.sub(
+                  r"\s+",
+                  " ",
+                  str(value or "").strip().lower()
+              )
+
+          def story_meta(post):
+              date = post["published"][:10]
+
+              topic_labels = [
+                  label
+                  for label in post.get("labels", [])
+                  if normalize_label(label) not in (
+                      "she donkey",
+                      "male donkey"
+                  )
+              ]
+
+              if topic_labels:
+                  topics = " and ".join(
+                      html.escape(label)
+                      for label in topic_labels
+                  )
+
+                  return (
+                      f"Written on {date}, "
+                      f"after going through "
+                      f"<em>{topics}</em>."
+                  )
+
+              return f"Written on {date}"
 
           posts = []
           used_slugs = set()
@@ -73,15 +105,16 @@ jobs:
 
               for category in entry.get("category", []):
                   label = category.get("term", "")
+
                   if label:
                       labels.append(label)
 
               posts.append({
-                    "title": title,
-                    "content": content,
-                    "published": published,
-                    "slug": slug,
-                    "labels": labels
+                  "title": title,
+                  "content": content,
+                  "published": published,
+                  "slug": slug,
+                  "labels": labels
               })
 
           Path("posts.json").write_text(
@@ -102,33 +135,6 @@ jobs:
 
           stories.mkdir(exist_ok=True)
 
-                    def story_meta(post):
-
-                        date = post["published"][:10]
-
-                        topic_labels = [
-                            label
-                            for label in post.get("labels", [])
-                            if label.lower() not in (
-                                "she donkey",
-                                "male donkey"
-                            )
-                        ]
-
-                        if topic_labels:
-                            topics = " and ".join(
-                                html.escape(label)
-                                for label in topic_labels
-                            )
-
-                            return (
-                                  f"Written on {date}, "
-                                  f"after going through "
-                                  f"<em>{topics}</em>."
-                            )
-
-                        return f"Written on {date}"
-
           def make_article(post):
 
               title = html.escape(
@@ -144,8 +150,6 @@ jobs:
                   )[:160],
                   quote=True
               )
-
-              date = post["published"]
 
               content = post["content"]
 
@@ -180,9 +184,6 @@ jobs:
                 The Two Donkeys
               </a>
 
-              <nav>
-              </nav>
-
             </div>
 
           </header>
@@ -191,7 +192,10 @@ jobs:
 
             <article class="article-page">
 
-              
+              <a class="back"
+                 href="../../">
+                ← Back to stories
+              </a>
 
               <div class="article-date">
                 {story_meta(post)}
@@ -203,14 +207,6 @@ jobs:
 
               <div class="article-content">
                 {content}
-              </div>
-
-              <div class="article-nav">
-
-                <a href="../../">
-                  ← Back to all stories
-                </a>
-
               </div>
 
             </article>
