@@ -1437,3 +1437,51 @@ nav a:hover {
   }
 
 }
+
+/* =========================================
+   MOVIE CARDS
+========================================= */
+
+.movie-poster {
+  height: 330px;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: center;
+
+  padding: 28px;
+
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(
+      145deg,
+      #202124,
+      #3c4043
+    );
+
+  color: #ffffff;
+
+  text-align: center;
+}
+
+
+.movie-poster-title {
+  font-family:
+    "Google Sans",
+    Arial,
+    sans-serif;
+
+  font-size: 1.5rem;
+
+  font-weight: 500;
+
+  line-height: 1.25;
+}
+
+
+.movie-card .collection-card-content {
+  padding-bottom: 22px;
+}
