@@ -36,58 +36,30 @@
     </p>
 
 
-    <!-- INTRODUCTION -->
+    <!-- TABS -->
 
-    <section class="welcome-card">
+    
+  <!-- BOOKS -->
 
-      <p class="welcome-title">Hello World,</p>
+<section class="collection-section">
 
-      <div class="welcome-text">
-        <p>This is a private space we both built together. No fantasy, no publicity, just a blog - our own space. We will post here mostly about books that we will read, movies we watch. Sometimes we will also share photos of flowers, stones, and probably random shots of skies, but primarily it is about books and what we learn reading them.</p>
+  <div class="collection-heading">
+    <p class="collection-label">BOOKS</p>
 
-        <p>The core goal is also about getting rid of our screens - yet it sounds like you are getting another screen to write your blog and you are telling about avoiding screen: we certainly understand the concern. But the positive part of maintaining this habit will certainly bypass the problems we are having with excessive use of screen.</p>
+    <h2>Books we have read</h2>
+  </div>
 
-        <p>We will update what new ideas will grow time-to-time, for now, this is the introductory.</p>
+  <div
+    id="books-grid"
+    class="collection-grid">
 
-        <p class="welcome-signoff">-- She donkey and Male donkey</p>
-      </div>
-
-    </section>
-
-
-    <!-- STORY TABS -->
-
-    <div class="story-tabs-slot">
-
-      <div
-        class="story-tabs"
-        role="tablist">
-
-        <button
-          class="story-tab active"
-          data-filter="she donkey"
-          role="tab">
-          she donkey writes here
-        </button>
-
-        <button
-          class="story-tab"
-          data-filter="male donkey"
-          role="tab">
-          male donkey writes here
-        </button>
-
-        <button
-          class="story-tab"
-          data-filter="all"
-          role="tab">
-          all stories
-        </button>
-
-      </div>
-
+    <div class="loading">
+      Loading books…
     </div>
 
+  </div>
+
+</section>
 
     <!-- POSTS -->
 
@@ -106,6 +78,41 @@
 
 </main>
   
+<div
+  class="story-tabs"
+  role="tablist">
+
+  <button
+    class="story-tab active"
+    data-filter="she donkey"
+    role="tab">
+
+    she donkey writes here
+
+  </button>
+
+  <button
+    class="story-tab"
+    data-filter="male donkey"
+    role="tab">
+
+    male donkey writes here
+
+  </button>
+
+  <button
+    class="story-tab"
+    data-filter="all"
+    role="tab">
+
+    all stories
+
+  </button>
+
+</div>
+
+
+<footer class="home-footer">
 
 <footer class="home-footer">
 
@@ -118,6 +125,63 @@
 
 let allPosts = [];
 
+  const books = [
+
+  {
+    label: "Days at the Morisaki Bookshop - Satoshi Yagisawa",
+    title: "Days at the Morisaki Bookshop",
+    author: "Satoshi Yagisawa"
+  },
+
+  {
+    label: "Gene Machine - Venki Ramakrishnan",
+    title: "Gene Machine",
+    author: "Venki Ramakrishnan"
+  },
+
+  {
+    label: "Heart Lamp - Banu Mushtaq",
+    title: "Heart Lamp",
+    author: "Banu Mushtaq"
+  },
+
+  {
+    label: "Sister of My Heart - Chitra Banerjee",
+    title: "Sister of My Heart",
+    author: "Chitra Banerjee"
+  },
+
+  {
+    label: "The Anarchy - William Dalrymple",
+    title: "The Anarchy",
+    author: "William Dalrymple"
+  },
+
+  {
+    label: "The Forest of Enchantments - Chitra Banerjee",
+    title: "The Forest of Enchantments",
+    author: "Chitra Banerjee"
+  },
+
+  {
+    label: "The Other Side of Silence - Urvashi Butalia",
+    title: "The Other Side of Silence",
+    author: "Urvashi Butalia"
+  },
+
+  {
+    label: "The Owl and the River and the Valley - Arupa Patangia Kalita",
+    title: "The Owl and the River and the Valley",
+    author: "Arupa Patangia Kalita"
+  },
+
+  {
+    label: "The Village By The Sea - Anita Desai",
+    title: "The Village By The Sea",
+    author: "Anita Desai"
+  }
+
+];
 
 /* -------------------------
    LOAD POSTS
@@ -149,7 +213,7 @@ async function loadPosts() {
     allPosts =
       await response.json();
 
-
+    showBooks();
     showPosts("she donkey");
 
 
@@ -171,7 +235,89 @@ async function loadPosts() {
 
 }
 
+/* -------------------------
+   SHOW BOOKS
+------------------------- */
 
+function showBooks() {
+
+  const container =
+    document.getElementById("books-grid");
+
+  if (!container) return;
+
+  container.innerHTML =
+    books.map(book => {
+
+      const encodedLabel =
+        encodeURIComponent(book.label);
+
+      return `
+
+        <article
+          class="collection-card book-card"
+          data-label="${escapeHtml(book.label)}">
+
+          <div class="book-cover">
+
+            <img
+              src="https://covers.openlibrary.org/b/title/${encodeURIComponent(book.title)}-L.jpg"
+              alt="${escapeHtml(book.title)} cover"
+              loading="lazy"
+              onerror="this.parentElement.classList.add('no-cover'); this.style.display='none';"
+            >
+
+          </div>
+
+          <div class="collection-card-content">
+
+            <h3>
+              ${escapeHtml(book.title)}
+            </h3>
+
+            <p>
+              ${escapeHtml(book.author)}
+            </p>
+
+            <button
+              class="collection-link"
+              type="button"
+              onclick="showBookStories('${encodedLabel}')">
+
+              Read our stories →
+
+            </button>
+
+          </div>
+
+        </article>
+
+      `;
+
+    }).join("");
+
+}
+
+  function showBookStories(encodedLabel) {
+
+  const label =
+    decodeURIComponent(encodedLabel);
+
+  showPosts(label);
+
+  const stories =
+    document.getElementById("homepage-posts");
+
+  if (stories) {
+
+    stories.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+  }
+
+}
 /* -------------------------
    SHOW POSTS
 ------------------------- */
@@ -323,39 +469,6 @@ document
     );
 
   });
-
-
-/* -------------------------
-   STICKY STORY TABS
-------------------------- */
-
-const storyTabsSlot =
-  document.querySelector(".story-tabs-slot");
-
-const storyTabs =
-  document.querySelector(".story-tabs");
-
-function updateStoryTabs() {
-
-  if (!storyTabsSlot || !storyTabs) return;
-
-  const shouldStick =
-    storyTabsSlot.getBoundingClientRect().top < 20;
-
-  storyTabs.classList.toggle(
-    "is-sticky",
-    shouldStick
-  );
-
-}
-
-window.addEventListener(
-  "scroll",
-  updateStoryTabs,
-  { passive: true }
-);
-
-updateStoryTabs();
 
 
 /* -------------------------
